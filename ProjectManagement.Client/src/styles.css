@@ -1,0 +1,409 @@
+ /* =========================================
+GLOBAL DARK THEME
+========================================= */
+
+body.dark-theme {
+background-color: #111827 !important;
+color: #f9fafb !important;
+}
+
+/* Settings page */
+
+body.dark-theme .settings-page {
+background-color: #111827;
+color: #f9fafb;
+}
+
+/* Header */
+
+body.dark-theme .settings-header h1,
+body.dark-theme .settings-header p {
+color: #f9fafb;
+}
+
+/* Sidebar */
+
+body.dark-theme .settings-sidebar {
+background-color: #1f2937;
+border-color: #374151;
+}
+
+body.dark-theme .settings-sidebar button {
+color: #d1d5db;
+}
+
+body.dark-theme .settings-sidebar button:hover {
+background-color: #374151;
+}
+
+body.dark-theme .settings-sidebar button.active {
+background-color: #312e81;
+color: #ffffff;
+}
+
+/* Cards */
+
+body.dark-theme .settings-card {
+background-color: #1f2937;
+border-color: #374151;
+color: #f9fafb;
+}
+
+/* Card headers */
+
+body.dark-theme .card-header h2 {
+color: #f9fafb;
+}
+
+body.dark-theme .card-header p {
+color: #9ca3af;
+}
+
+/* Profile */
+
+body.dark-theme .profile-avatar h3 {
+color: #f9fafb;
+}
+
+body.dark-theme .profile-avatar p {
+color: #9ca3af;
+}
+
+/* Labels */
+
+body.dark-theme .form-group label {
+color: #e5e7eb;
+}
+
+/* Inputs */
+
+body.dark-theme .form-group input {
+background-color: #111827;
+color: #f9fafb;
+border-color: #4b5563;
+}
+
+/* Notification options */
+
+body.dark-theme .setting-option {
+border-color: #374151;
+}
+
+body.dark-theme .setting-info strong {
+color: #f9fafb;
+}
+
+body.dark-theme .setting-info p {
+color: #9ca3af;
+}
+
+/* Security */
+
+body.dark-theme .security-item {
+border-color: #374151;
+}
+
+body.dark-theme .security-item strong {
+color: #f9fafb;
+}
+
+body.dark-theme .security-item p {
+color: #9ca3af;
+}
+
+/* Appearance options */
+
+body.dark-theme .theme-option {
+background-color: #1f2937;
+border-color: #374151;
+color: #f9fafb;
+}
+
+body.dark-theme .theme-option.active {
+background-color: #312e81;
+border-color: #6366f1;
+}
+
+body.dark-theme .theme-info strong {
+color: #f9fafb;
+}
+
+body.dark-theme .theme-info p {
+color: #9ca3af;
+}
+/* =========================================
+   GLOBAL DARK MODE - ALL APPLICATION
+========================================= */
+
+body.dark-theme {
+  background-color: #111827 !important;
+  color: #f9fafb !important;
+}
+
+/* Main application layout */
+
+body.dark-theme app-root,
+body.dark-theme app-layout {
+  background-color: #111827 !important;
+  color: #f9fafb !important;
+}
+
+/* Main content */
+
+body.dark-theme main {
+  background-color: #111827 !important;
+  color: #f9fafb !important;
+}
+
+/* Common page containers */
+
+body.dark-theme .dashboard,
+body.dark-theme .projects-page,
+body.dark-theme .project-page,
+body.dark-theme .project-details,
+body.dark-theme .tasks-page,
+body.dark-theme .members-page,
+body.dark-theme .team-page,
+body.dark-theme .settings-page {
+  background-color: #111827 !important;
+  color: #f9fafb !important;
+}
+
+/* Cards */
+
+body.dark-theme .card,
+body.dark-theme .stat-card,
+body.dark-theme .project-card,
+body.dark-theme .task-card,
+body.dark-theme .members-section,
+body.dark-theme .team-card,
+body.dark-theme .settings-card {
+  background-color: #1f2937 !important;
+  color: #f9fafb !important;
+  border-color: #374151 !important;
+}
+
+/* Headers */
+
+body.dark-theme h1,
+body.dark-theme h2,
+body.dark-theme h3,
+body.dark-theme h4,
+body.dark-theme h5,
+body.dark-theme strong {
+  color: #f9fafb !important;
+}
+
+body.dark-theme p {
+  color: #9ca3af !important;
+}
+
+/* Inputs */
+
+body.dark-theme input,
+body.dark-theme select,
+body.dark-theme textarea {
+  background-color: #111827 !important;
+  color: #f9fafb !important;
+  border-color: #4b5563 !important;
+}
+
+/* Tables */
+
+body.dark-theme table {
+  background-color: #1f2937 !important;
+  color: #f9fafb !important;
+}
+
+body.dark-theme th {
+  background-color: #111827 !important;
+  color: #f9fafb !important;
+}
+
+body.dark-theme td {
+  color: #d1d5db !important;
+  border-color: #374151 !important;
+}
+
+/* Sidebar */
+
+body.dark-theme .sidebar {
+  background-color: #1f2937 !important;
+  border-color: #374151 !important;
+}
+
+body.dark-theme .sidebar a {
+  color: #d1d5db !important;
+}
+
+body.dark-theme .sidebar a:hover,
+body.dark-theme .sidebar a.active {
+  background-color: #312e81 !important;
+  color: #ffffff !important;
+}
+/* =========================================
+   DASHBOARD - DARK MODE
+========================================= */
+
+/* Main Dashboard background */
+
+body.dark-theme .dashboard {
+  background-color: #111827 !important;
+  color: #f9fafb !important;
+}
+
+
+/* Dashboard header */
+
+body.dark-theme .dashboard-header {
+  background-color: transparent !important;
+}
+
+body.dark-theme .dashboard-header h1,
+body.dark-theme .dashboard-header p {
+  color: #f9fafb !important;
+}
+
+
+/* =========================================
+   DASHBOARD SECTIONS
+========================================= */
+
+body.dark-theme .dashboard-section {
+  background-color: #111827 !important;
+  color: #f9fafb !important;
+}
+
+
+/* =========================================
+   PROJECTS SECTION
+========================================= */
+
+body.dark-theme .projects-section {
+  background-color: #111827 !important;
+  color: #f9fafb !important;
+}
+
+body.dark-theme .projects-header {
+  background-color: transparent !important;
+}
+
+body.dark-theme .projects-header h2,
+body.dark-theme .projects-header p {
+  color: #f9fafb !important;
+}
+
+
+/* Project cards */
+
+body.dark-theme .project-card {
+  background-color: #1f2937 !important;
+  color: #f9fafb !important;
+  border-color: #374151 !important;
+}
+
+body.dark-theme .project-card h3,
+body.dark-theme .project-card h4 {
+  color: #f9fafb !important;
+}
+
+body.dark-theme .project-card p {
+  color: #9ca3af !important;
+}
+
+
+/* =========================================
+   RECENT TASKS
+========================================= */
+
+body.dark-theme .recent-tasks {
+  background-color: #111827 !important;
+  color: #f9fafb !important;
+}
+
+body.dark-theme .recent-tasks-header {
+  background-color: transparent !important;
+}
+
+body.dark-theme .recent-tasks-header h2,
+body.dark-theme .recent-tasks-header p {
+  color: #f9fafb !important;
+}
+
+
+/* Task cards */
+
+body.dark-theme .task-card {
+  background-color: #1f2937 !important;
+  color: #f9fafb !important;
+  border-color: #374151 !important;
+}
+
+body.dark-theme .task-card h3,
+body.dark-theme .task-card h4 {
+  color: #f9fafb !important;
+}
+
+body.dark-theme .task-card p {
+  color: #9ca3af !important;
+}
+
+
+/* =========================================
+   RECENT ACTIVITY
+========================================= */
+
+body.dark-theme .recent-activity {
+  background-color: #111827 !important;
+  color: #f9fafb !important;
+}
+
+body.dark-theme .recent-activity-header {
+  background-color: transparent !important;
+}
+
+body.dark-theme .recent-activity-header h2,
+body.dark-theme .recent-activity-header p {
+  color: #f9fafb !important;
+}
+
+
+/* Activity card */
+
+body.dark-theme .activity-card {
+  background-color: #1f2937 !important;
+  color: #f9fafb !important;
+  border-color: #374151 !important;
+}
+
+body.dark-theme .activity-card h3,
+body.dark-theme .activity-card h4 {
+  color: #f9fafb !important;
+}
+
+body.dark-theme .activity-card p {
+  color: #9ca3af !important;
+}
+
+
+/* =========================================
+   DASHBOARD WHITE CONTAINERS
+========================================= */
+
+body.dark-theme .dashboard-content,
+body.dark-theme .dashboard-main,
+body.dark-theme .dashboard-grid,
+body.dark-theme .projects-container,
+body.dark-theme .tasks-container,
+body.dark-theme .activity-container {
+  background-color: #111827 !important;
+}
+
+
+/* =========================================
+   VIEW ALL BUTTON
+========================================= */
+
+body.dark-theme .view-all {
+  color: #a5b4fc !important;
+}

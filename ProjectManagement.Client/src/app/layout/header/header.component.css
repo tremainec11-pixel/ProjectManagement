@@ -1,0 +1,278 @@
+/* ========================================
+   HEADER - DEFAULT / LIGHT MODE
+======================================== */
+
+.header {
+  height: 76px;
+  background: #ffffff;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 28px;
+  position: fixed;
+  top: 0;
+  left: 260px;
+  right: 0;
+  z-index: 900;
+}
+
+/* ========================================
+   HEADER LEFT
+======================================== */
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.menu-button {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  border-radius: 8px;
+  color: #1e293b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.menu-button:hover {
+  background: #f1f5f9;
+}
+
+/* ========================================
+   PAGE HEADING - LIGHT MODE
+======================================== */
+
+.page-heading {
+  display: flex;
+  flex-direction: column;
+}
+
+.page-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.page-subtitle {
+  font-size: 12px;
+  color: #6b7280;
+  margin-top: 3px;
+}
+
+/* ========================================
+   HEADER ACTIONS
+======================================== */
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.header-button {
+  position: relative;
+  color: #1e293b;
+}
+
+.header-button:hover {
+  color: #2563eb;
+}
+
+.notification-button {
+  position: relative;
+}
+
+.notification-dot {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ef4444;
+  border: 2px solid #ffffff;
+}
+
+.header-divider {
+  width: 1px;
+  height: 34px;
+  background: #e5e7eb;
+  margin: 0 12px;
+}
+
+/* ========================================
+   USER
+======================================== */
+
+.header-user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  padding: 6px 8px;
+  border-radius: 10px;
+  transition: background 0.2s ease;
+}
+
+.header-user:hover {
+  background: #f8fafc;
+}
+
+.header-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.header-user-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-user-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.header-user-role {
+  font-size: 11px;
+  color: #6b7280;
+  margin-top: 2px;
+}
+
+.dropdown-icon {
+  color: #6b7280;
+  font-size: 20px;
+  margin-left: 4px;
+}
+
+/* ========================================
+   DARK MODE
+======================================== */
+
+body.dark-theme .header {
+  background: #111827;
+  border-bottom-color: #1f2937;
+}
+
+/* TÍTULO: BLANCO EN DARK MODE */
+
+body.dark-theme .page-title {
+  color: #f8fafc;
+}
+
+/* SUBTÍTULO: GRIS EN DARK MODE */
+
+body.dark-theme .page-subtitle {
+  color: #94a3b8;
+}
+
+/* MENU */
+
+body.dark-theme .menu-button {
+  color: #f8fafc;
+}
+
+body.dark-theme .menu-button:hover {
+  background: #1f2937;
+}
+
+/* ICONOS */
+
+body.dark-theme .header-button {
+  color: #f8fafc;
+}
+
+body.dark-theme .header-button:hover {
+  color: #60a5fa;
+}
+
+/* DIVISOR */
+
+body.dark-theme .header-divider {
+  background: #374151;
+}
+
+/* USUARIO */
+
+body.dark-theme .header-user:hover {
+  background: #1f2937;
+}
+
+body.dark-theme .header-user-name {
+  color: #f8fafc;
+}
+
+body.dark-theme .header-user-role {
+  color: #94a3b8;
+}
+
+body.dark-theme .dropdown-icon {
+  color: #94a3b8;
+}
+
+/* NOTIFICATION DOT */
+
+body.dark-theme .notification-dot {
+  border-color: #111827;
+}
+
+/* ========================================
+   LIGHT MODE - FORZAR COLORES
+======================================== */
+
+body.light-theme .header {
+  background: #ffffff;
+  border-bottom-color: #e5e7eb;
+}
+
+body.light-theme .page-title {
+  color: #111827;
+}
+
+body.light-theme .page-subtitle {
+  color: #6b7280;
+}
+
+body.light-theme .menu-button {
+  color: #1e293b;
+}
+
+body.light-theme .header-button {
+  color: #1e293b;
+}
+
+body.light-theme .header-divider {
+  background: #e5e7eb;
+}
+
+body.light-theme .header-user-name {
+  color: #1e293b;
+}
+
+body.light-theme .header-user-role {
+  color: #6b7280;
+}
+
+body.light-theme .dropdown-icon {
+  color: #6b7280;
+}
+
+body.light-theme .notification-dot {
+  border-color: #ffffff;
+}

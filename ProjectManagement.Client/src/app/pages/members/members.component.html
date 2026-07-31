@@ -1,0 +1,195 @@
+<div class="members-page">
+
+  <!-- Page Header -->
+
+  <div class="page-header">
+    <div>
+      <h1>Members</h1>
+      <p>Manage and view your project members</p>
+    </div>
+  </div>
+
+  <!-- Statistics -->
+
+  <div class="stats-grid">
+
+
+<div class="stat-card">
+  <div class="stat-icon">👥</div>
+
+  <div class="stat-info">
+    <span class="stat-label">Total Members</span>
+    <span class="stat-value">{{ users.length }}</span>
+  </div>
+</div>
+
+<div class="stat-card">
+  <div class="stat-icon">✓</div>
+
+  <div class="stat-info">
+    <span class="stat-label">Active Members</span>
+    <span class="stat-value">{{ users.length }}</span>
+  </div>
+</div>
+
+<div class="stat-card">
+  <div class="stat-icon">★</div>
+
+  <div class="stat-info">
+    <span class="stat-label">Team Members</span>
+    <span class="stat-value">{{ users.length }}</span>
+  </div>
+</div>
+
+
+  </div>
+
+  <!-- Members Section -->
+
+  <div class="members-section">
+
+
+<div class="section-header">
+  <h2>All Members</h2>
+  <p>View and manage members of your organization.</p>
+</div>
+
+<!-- Search -->
+<div class="search-container">
+
+  <span class="search-icon">🔍</span>
+
+  <input
+    type="text"
+    placeholder="Search by name or email..."
+    [(ngModel)]="searchTerm"
+    (input)="searchMembers()"
+  />
+
+</div>
+
+<!-- Loading -->
+<div
+  class="message"
+  *ngIf="isLoading">
+
+  Loading members...
+
+</div>
+
+<!-- Error -->
+<div
+  class="message error"
+  *ngIf="errorMessage">
+
+  {{ errorMessage }}
+
+</div>
+
+<!-- Table -->
+<div
+  class="table-container"
+  *ngIf="!isLoading && !errorMessage">
+
+  <table class="members-table">
+
+    <thead>
+
+      <tr>
+        <th>Member</th>
+        <th>Email</th>
+        <th>Role</th>
+        <th>Status</th>
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      <tr
+        *ngFor="let user of filteredUsers">
+
+        <!-- Member -->
+        <td>
+
+          <div class="member-info">
+
+            <div class="member-avatar">
+
+              {{
+                user.firstName.charAt(0)
+                || 'U'
+              }}
+
+            </div>
+
+            <div>
+
+              <div class="member-name">
+
+                {{ user.firstName }}
+                {{ user.lastName }}
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </td>
+
+        <!-- Email -->
+        <td class="member-email">
+
+          {{ user.email }}
+
+        </td>
+
+        <!-- Role -->
+        <td>
+
+          <span class="role">
+
+            Organization Member
+
+          </span>
+
+        </td>
+
+        <!-- Status -->
+        <td>
+
+          <span class="status active">
+
+            Active
+
+          </span>
+
+        </td>
+
+      </tr>
+
+      <!-- Empty -->
+      <tr
+        *ngIf="filteredUsers.length === 0">
+
+        <td
+          colspan="4"
+          class="empty-state">
+
+          No members found.
+
+        </td>
+
+      </tr>
+
+    </tbody>
+
+  </table>
+
+</div>
+
+
+  </div>
+
+</div>

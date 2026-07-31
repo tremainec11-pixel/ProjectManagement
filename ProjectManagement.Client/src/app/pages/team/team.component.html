@@ -1,0 +1,420 @@
+<div class="team-page">
+
+  <!-- Header -->
+
+  <div class="page-header">
+
+    <div>
+      <h1>Teams</h1>
+
+      <p>
+        Manage your project team members
+      </p>
+    </div>
+
+  </div>
+
+
+  <!-- Messages -->
+
+  <div
+    class="success-message"
+    *ngIf="successMessage">
+
+    {{ successMessage }}
+
+  </div>
+
+
+  <div
+    class="error-message"
+    *ngIf="errorMessage">
+
+    {{ errorMessage }}
+
+  </div>
+
+
+  <!-- Project Selection -->
+
+  <div class="team-card">
+
+    <div class="section-header">
+
+      <div>
+        <h2>Project Team</h2>
+
+        <p>
+          Select a project to manage its team members.
+        </p>
+      </div>
+
+    </div>
+
+
+    <div class="project-selector">
+
+      <label for="project">
+        Project
+      </label>
+
+      <select
+        id="project"
+        [(ngModel)]="selectedProjectId"
+        (change)="onProjectChange()"
+        [disabled]="isLoadingProjects">
+
+        <option
+          [ngValue]="0">
+
+          Select a project
+
+        </option>
+
+        <option
+          *ngFor="let project of projects"
+          [ngValue]="project.id">
+
+          {{ project.name }}
+
+        </option>
+
+      </select>
+
+    </div>
+
+  </div>
+
+
+  <!-- Add Member -->
+
+  <div
+    class="team-card"
+    *ngIf="selectedProjectId">
+
+    <div class="section-header">
+
+      <div>
+        <h2>Add Team Member</h2>
+
+        <p>
+          Add a user to this project team.
+        </p>
+      </div>
+
+    </div>
+
+
+    <div class="add-member-form">
+
+      <!-- User -->
+
+      <div class="form-group">
+
+        <label for="user">
+          Team Member
+        </label>
+
+        <select
+          id="user"
+          [(ngModel)]="selectedUserId"
+          [disabled]="isLoadingUsers || isAddingMember">
+
+          <option
+            [ngValue]="0">
+
+            Select a team member
+
+          </option>
+
+          <option
+            *ngFor="let user of users"
+            [ngValue]="user.id">
+
+            {{ user.firstName }}
+            {{ user.lastName }}
+            -
+            {{ user.email }}
+
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- Role -->
+
+      <div class="form-group">
+
+        <label for="role">
+          Role
+        </label>
+
+        <select
+          id="role"
+          [(ngModel)]="selectedRole"
+          [disabled]="isAddingMember">
+
+          <option value="Member">
+            Member
+          </option>
+
+          <option value="Developer">
+            Developer
+          </option>
+
+          <option value="Designer">
+            Designer
+          </option>
+
+          <option value="Manager">
+            Manager
+          </option>
+
+          <option value="Admin">
+            Admin
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- Button -->
+
+      <div class="form-button">
+
+        <button
+          type="button"
+          class="add-member-button"
+          (click)="addMember()"
+          [disabled]="isAddingMember">
+
+          <span *ngIf="!isAddingMember">
+            +
+          </span>
+
+          <span *ngIf="isAddingMember">
+            
+          </span>
+
+          {{ isAddingMember
+            ? 'Adding...'
+            : 'Add Member'
+          }}
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Members -->
+
+  <div
+    class="team-card"
+    *ngIf="selectedProjectId">
+
+    <div class="section-header">
+
+      <div>
+        <h2>Team Members</h2>
+
+        <p>
+          Members assigned to this project.
+        </p>
+      </div>
+
+      <div class="member-count">
+
+        {{ members.length }}
+
+        {{ members.length === 1
+          ? 'Member'
+          : 'Members'
+        }}
+
+      </div>
+
+    </div>
+
+
+    <!-- Loading -->
+
+    <div
+      class="loading"
+      *ngIf="isLoadingMembers">
+
+      Loading team members...
+
+    </div>
+
+
+    <!-- Table -->
+
+    <div
+      class="table-container"
+      *ngIf="!isLoadingMembers && members.length > 0">
+
+      <table>
+
+        <thead>
+
+          <tr>
+
+            <th>
+              Member
+            </th>
+
+            <th>
+              Email
+            </th>
+
+            <th>
+              Role
+            </th>
+
+            <th>
+              Joined
+            </th>
+
+            <th>
+              Actions
+            </th>
+
+          </tr>
+
+        </thead>
+
+
+        <tbody>
+
+          <tr
+            *ngFor="let member of members">
+
+            <!-- Member -->
+
+            <td>
+
+              <div class="member-info">
+
+                <div class="avatar">
+
+                  {{ member.userName
+                    .charAt(0)
+                    .toUpperCase()
+                  }}
+
+                </div>
+
+                <strong>
+                  {{ member.userName }}
+                </strong>
+
+              </div>
+
+            </td>
+
+
+            <!-- Email -->
+
+            <td>
+
+              {{ member.email }}
+
+            </td>
+
+
+            <!-- Role -->
+
+            <td>
+
+              <span class="role-badge">
+
+                {{ member.role }}
+
+              </span>
+
+            </td>
+
+
+            <!-- Joined -->
+
+            <td>
+
+              {{ member.joinedAt
+                | date:'MMM d, yyyy'
+              }}
+
+            </td>
+
+
+            <!-- Actions -->
+
+            <td>
+
+              <button
+                type="button"
+                class="remove-button"
+                (click)="removeMember(member)">
+
+                Remove
+
+              </button>
+
+            </td>
+
+          </tr>
+
+        </tbody>
+
+      </table>
+
+    </div>
+
+
+    <!-- Empty State -->
+
+    <div
+      class="empty-state"
+      *ngIf="!isLoadingMembers && members.length === 0">
+
+      <h3>
+        No team members
+      </h3>
+
+      <p>
+        This project doesn't have any team members yet.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- No Project Selected -->
+
+  <div
+    class="empty-project"
+    *ngIf="!selectedProjectId">
+
+    <div class="empty-project-icon">
+      +
+    </div>
+
+    <h2>
+      Select a project
+    </h2>
+
+    <p>
+      Choose a project above to view and manage its team members.
+    </p>
+
+  </div>
+
+</div>
+

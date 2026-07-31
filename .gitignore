@@ -1,0 +1,29 @@
+# Visual Studio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# .NET
+**/bin/
+**/obj/
+
+# ASP.NET / .NET
+appsettings.Development.json
+
+# Angular / Node
+**/node_modules/
+**/.angular/
+**/dist/
+
+# Logs
+*.log
+
+# Environment files
+.env
+.env.*
+
+# OS files
+.DS_Store
+Thumbs.db

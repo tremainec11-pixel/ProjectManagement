@@ -1,0 +1,239 @@
+<div class="tasks-page">
+
+  <!-- Header -->
+
+  <div class="tasks-header">
+
+    <div>
+      <h1>Tasks</h1>
+
+      <p>
+        Manage and track your project tasks
+      </p>
+    </div>
+
+    <button
+      class="primary-button"
+      type="button"
+      (click)="createTask()">
+
+      <span>+</span>
+
+      Create Task
+
+    </button>
+
+  </div>
+
+
+  <!-- Error -->
+
+  <div
+    class="error-message"
+    *ngIf="errorMessage">
+
+    {{ errorMessage }}
+
+  </div>
+
+
+  <!-- Loading -->
+
+  <div
+    class="loading"
+    *ngIf="isLoading">
+
+    Loading tasks...
+
+  </div>
+
+
+  <!-- Tasks Table -->
+
+  <div
+    class="table-container"
+    *ngIf="!isLoading">
+
+    <table>
+
+      <thead>
+
+        <tr>
+
+          <th>Task</th>
+
+          <th>Project</th>
+
+          <th>Assigned To</th>
+
+          <th>Status</th>
+
+          <th>Priority</th>
+
+          <th>Due Date</th>
+
+          <th>Actions</th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+        <tr
+          *ngFor="let task of tasks">
+
+          <!-- Task -->
+
+          <td>
+
+            <div class="task-info">
+
+              <strong>
+                {{ task.title }}
+              </strong>
+
+              <span>
+                {{ task.description }}
+              </span>
+
+            </div>
+
+          </td>
+
+
+          <!-- Project -->
+
+          <td>
+
+            {{ getProjectName(task.projectId) }}
+
+          </td>
+
+
+          <!-- Assigned -->
+
+          <td>
+
+            <span
+              *ngIf="task.assignedToName">
+
+              {{ getUserName(task.assignedToId, task.assignedToName) }}
+
+            </span>
+
+            <span
+              *ngIf="!task.assignedToName">
+
+              {{ getUserName(task.assignedToId, task.assignedToName) }}
+
+            </span>
+
+          </td>
+
+
+          <!-- Status -->
+
+          <td>
+
+            <span
+              class="status-badge"
+              [ngClass]="task.status
+                .toLowerCase()
+                .replace(' ', '-')">
+
+              {{ task.status }}
+
+            </span>
+
+          </td>
+
+
+          <!-- Priority -->
+
+          <td>
+
+            <span
+              class="priority-badge"
+              [ngClass]="task.priority.toLowerCase()">
+
+              {{ task.priority }}
+
+            </span>
+
+          </td>
+
+
+          <!-- Due Date -->
+
+          <td>
+
+            <span *ngIf="task.dueDate">
+
+              {{ task.dueDate | date:'MMM d, yyyy' }}
+
+            </span>
+
+            <span *ngIf="!task.dueDate">
+
+              No due date
+
+            </span>
+
+          </td>
+
+
+          <!-- Actions -->
+
+          <td>
+
+            <div class="actions">
+
+              <button
+                type="button"
+                class="edit-button"
+                (click)="editTask(task)">
+
+                Edit
+
+              </button>
+
+              <button
+                type="button"
+                class="delete-button"
+                (click)="deleteTask(task)">
+
+                Delete
+
+              </button>
+
+            </div>
+
+          </td>
+
+        </tr>
+
+
+        <!-- Empty State -->
+
+        <tr *ngIf="tasks.length === 0">
+
+          <td
+            colspan="7"
+            class="empty-state">
+
+            No tasks found.
+
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>
+

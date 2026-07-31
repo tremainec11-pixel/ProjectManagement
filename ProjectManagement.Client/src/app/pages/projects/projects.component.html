@@ -1,0 +1,363 @@
+<div class="projects-page">
+
+  <!-- Header -->
+
+  <div class="projects-header">
+
+
+<div>
+  <h1>Projects</h1>
+
+  <p>
+    Manage your projects, track progress and collaborate with your team.
+  </p>
+</div>
+
+<button
+  class="primary-button"
+  type="button"
+  (click)="createProject()">
+
+  <span>+</span>
+  New Project
+
+</button>
+
+
+  </div>
+
+  <!-- Statistics -->
+
+  <div class="stats-grid">
+
+
+<div class="stat-card">
+
+  <div class="stat-icon total">
+    📁
+  </div>
+
+  <div>
+    <span>Total Projects</span>
+    <strong>{{ totalProjects }}</strong>
+  </div>
+
+</div>
+
+
+<div class="stat-card">
+
+  <div class="stat-icon active">
+    ●
+  </div>
+
+  <div>
+    <span>Active Projects</span>
+    <strong>{{ activeProjects }}</strong>
+  </div>
+
+</div>
+
+
+<div class="stat-card">
+
+  <div class="stat-icon completed">
+    ✓
+  </div>
+
+  <div>
+    <span>Completed</span>
+    <strong>{{ completedProjects }}</strong>
+  </div>
+
+</div>
+
+
+<div class="stat-card">
+
+  <div class="stat-icon hold">
+    ⏸
+  </div>
+
+  <div>
+    <span>On Hold</span>
+    <strong>{{ onHoldProjects }}</strong>
+  </div>
+
+</div>
+
+
+  </div>
+
+  <!-- Projects Content -->
+
+  <div class="projects-card">
+
+
+<!-- Toolbar -->
+
+<div class="projects-toolbar">
+
+  <div class="search-box">
+
+    <span>⌕</span>
+
+    <input
+      type="text"
+      placeholder="Search projects..."
+      [(ngModel)]="searchTerm">
+
+  </div>
+
+
+  <select
+    [(ngModel)]="selectedStatus">
+
+    <option value="All">
+      All Statuses
+    </option>
+
+    <option value="Active">
+      Active
+    </option>
+
+    <option value="Completed">
+      Completed
+    </option>
+
+    <option value="On Hold">
+      On Hold
+    </option>
+
+    <option value="Cancelled">
+      Cancelled
+    </option>
+
+  </select>
+
+</div>
+
+
+<!-- Loading State -->
+
+<div
+  class="empty-state"
+  *ngIf="isLoading">
+
+  <div>⏳</div>
+
+  <h3>Loading projects...</h3>
+
+  <p>
+    Please wait while we load your projects.
+  </p>
+
+</div>
+
+
+<!-- Error State -->
+
+<div
+  class="empty-state"
+  *ngIf="!isLoading && errorMessage">
+
+  <div>⚠️</div>
+
+  <h3>Unable to load projects</h3>
+
+  <p>
+    {{ errorMessage }}
+  </p>
+
+  <button
+    type="button"
+    class="primary-button"
+    (click)="loadProjects()">
+
+    Try Again
+
+  </button>
+
+</div>
+
+
+<!-- Projects Grid -->
+
+<div
+  class="projects-grid"
+  *ngIf="!isLoading && !errorMessage">
+
+  <div
+    class="project-card"
+    *ngFor="let project of filteredProjects">
+
+
+    <!-- Card Header -->
+
+    <div class="project-card-header">
+
+      <div class="project-icon">
+        {{ project.name.charAt(0).toUpperCase() }}
+      </div>
+
+
+      <span
+        class="status-badge"
+        [ngClass]="project.status.toLowerCase().replace(' ', '-')">
+
+        {{ project.status }}
+
+      </span>
+
+    </div>
+
+
+    <!-- Card Content -->
+
+    <div class="project-content">
+
+      <h3>
+        {{ project.name }}
+      </h3>
+
+      <p>
+        {{ project.description }}
+      </p>
+
+
+      <!-- Dates -->
+
+      <div class="project-dates">
+
+        <div>
+
+          <span>
+            Start Date
+          </span>
+
+          <strong>
+            {{ project.startDate | date:'MMM d, y' }}
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Due Date
+          </span>
+
+          <strong>
+
+            {{
+              project.dueDate
+                ? (project.dueDate | date:'MMM d, y')
+                : 'No deadline'
+            }}
+
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <!-- Project Meta -->
+
+      <div class="project-meta">
+
+        <div>
+
+          <span>
+            Owner
+          </span>
+
+          <strong>
+            {{ project.ownerName }}
+          </strong>
+
+        </div>
+
+
+        <div>
+
+          <span>
+            Team Members
+          </span>
+
+          <strong>
+            {{ project.memberCount }}
+          </strong>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- Actions -->
+
+    <div class="project-actions">
+
+      <button
+        type="button"
+        (click)="viewProject(project)">
+
+        View
+
+      </button>
+
+
+      <button
+        type="button"
+        (click)="editProject(project)">
+
+        Edit
+
+      </button>
+
+
+      <button
+        type="button"
+        class="delete-button"
+        (click)="deleteProject(project)">
+
+        Delete
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- Empty State -->
+
+<div
+  class="empty-state"
+  *ngIf="
+    !isLoading &&
+    !errorMessage &&
+    filteredProjects.length === 0
+  ">
+
+  <div>📁</div>
+
+  <h3>
+    No projects found
+  </h3>
+
+  <p>
+    Try changing your search or filter.
+  </p>
+
+</div>
+
+
+  </div>
+
+</div>

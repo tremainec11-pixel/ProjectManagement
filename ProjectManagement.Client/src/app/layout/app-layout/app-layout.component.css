@@ -1,0 +1,88 @@
+/* ========================================
+   APP LAYOUT
+======================================== */
+
+.app-layout {
+  min-height: 100vh;
+  background: #f8fafc;
+  display: flex;
+  color: #111827;
+}
+
+/* ========================================
+   SIDEBAR
+======================================== */
+
+app-sidebar {
+  flex: 0 0 260px;
+}
+
+/* ========================================
+   MAIN CONTENT
+======================================== */
+
+.main-content {
+  flex: 1;
+  min-width: 0;
+  min-height: 100vh;
+  background: #f8fafc;
+  box-sizing: border-box;
+}
+
+/* ========================================
+   PAGE CONTENT
+   ESTE ES EL FONDO EXTERIOR DE TODAS
+   LAS PAGINAS
+======================================== */
+
+.page-content {
+  min-height: 100vh;
+  padding: 104px 40px 40px;
+  box-sizing: border-box;
+  background: #f8fafc;
+  color: #111827;
+}
+
+/* ========================================
+   LIGHT MODE
+======================================== */
+
+body.light-theme,
+body.light-theme .app-layout,
+body.light-theme .main-content,
+body.light-theme .page-content {
+  background: #f8fafc;
+  color: #111827;
+}
+
+/* ========================================
+   DARK MODE
+======================================== */
+
+body.dark-theme,
+body.dark-theme .app-layout,
+body.dark-theme .main-content,
+body.dark-theme .page-content {
+  background: #0b1120;
+  color: #f8fafc;
+}
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 900px) {
+
+  .page-content {
+    padding: 96px 24px 32px;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .page-content {
+    padding: 92px 16px 24px;
+  }
+
+}

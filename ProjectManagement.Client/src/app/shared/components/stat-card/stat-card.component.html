@@ -1,0 +1,42 @@
+<div class="stat-card">
+
+  <div class="stat-card-top">
+
+    <div class="stat-icon">
+      <mat-icon>{{ icon }}</mat-icon>
+    </div>
+
+    <div
+      *ngIf="trend"
+      class="stat-trend"
+      [class.positive]="trendPositive"
+      [class.negative]="!trendPositive">
+
+      <mat-icon>
+        {{ trendPositive ? 'trending_up' : 'trending_down' }}
+      </mat-icon>
+
+      <span>{{ trend }}</span>
+
+    </div>
+
+  </div>
+
+  <div class="stat-content">
+
+    <span class="stat-title">
+      {{ title }}
+    </span>
+
+    <h2 class="stat-value">
+      {{ value }}
+    </h2>
+
+    <span class="stat-subtitle">
+      {{ subtitle }}
+    </span>
+
+  </div>
+
+</div>
+

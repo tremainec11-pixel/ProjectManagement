@@ -1,0 +1,276 @@
+<div class="edit-task-page">
+
+  <!-- Header -->
+  <div class="page-header">
+
+    <div>
+      <h1>Edit Task</h1>
+      <p>Update the task information and assignment.</p>
+    </div>
+
+    <button
+      type="button"
+      class="back-button"
+      (click)="cancel()">
+
+      ← Back to Tasks
+
+    </button>
+
+  </div>
+
+  <!-- Error -->
+  <div
+    class="error-message"
+    *ngIf="errorMessage">
+
+    {{ errorMessage }}
+
+  </div>
+
+  <!-- Loading -->
+  <div
+    class="loading-message"
+    *ngIf="isLoading">
+
+    Loading task...
+
+  </div>
+
+  <!-- Form -->
+  <form
+    class="task-form"
+    *ngIf="!isLoading"
+    (ngSubmit)="updateTask()">
+
+    <!-- Task Information -->
+    <div class="form-section">
+
+      <div class="section-header">
+
+        <h2>Task Information</h2>
+
+        <p>
+          Update the basic information for this task.
+        </p>
+
+      </div>
+
+      <div class="form-grid">
+
+        <!-- Title -->
+        <div class="form-group full-width">
+
+          <label for="title">
+            Task Title
+          </label>
+
+          <input
+            id="title"
+            type="text"
+            name="title"
+            [(ngModel)]="task.title"
+            placeholder="Enter task title"
+            required>
+
+        </div>
+
+        <!-- Description -->
+        <div class="form-group full-width">
+
+          <label for="description">
+            Description
+          </label>
+
+          <textarea
+            id="description"
+            name="description"
+            [(ngModel)]="task.description"
+            placeholder="Describe what needs to be done..."
+            required>
+          </textarea>
+
+        </div>
+
+        <!-- Status -->
+        <div class="form-group">
+
+          <label for="status">
+            Status
+          </label>
+
+          <select
+            id="status"
+            name="status"
+            [(ngModel)]="task.status">
+
+            <option value="Todo">
+              Todo
+            </option>
+
+            <option value="In Progress">
+              In Progress
+            </option>
+
+            <option value="Done">
+              Done
+            </option>
+
+          </select>
+
+        </div>
+
+        <!-- Priority -->
+        <div class="form-group">
+
+          <label for="priority">
+            Priority
+          </label>
+
+          <select
+            id="priority"
+            name="priority"
+            [(ngModel)]="task.priority">
+
+            <option value="Low">
+              Low
+            </option>
+
+            <option value="Medium">
+              Medium
+            </option>
+
+            <option value="High">
+              High
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- Task Assignment -->
+    <div class="form-section">
+
+      <div class="section-header">
+
+        <h2>Task Assignment</h2>
+
+        <p>
+          Connect this task to a project and assign it to a team member.
+        </p>
+
+      </div>
+
+      <div class="form-grid">
+
+        <!-- Project -->
+        <div class="form-group">
+
+          <label for="projectId">
+            Project
+          </label>
+
+          <select
+            id="projectId"
+            name="projectId"
+            [(ngModel)]="task.projectId"
+            required>
+
+            <option [ngValue]="0">
+              Select a project
+            </option>
+
+            <option
+              *ngFor="let project of projects"
+              [ngValue]="project.id">
+
+              {{ project.name }}
+
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- Assigned To -->
+        <div class="form-group">
+
+          <label for="assignedToId">
+            Assigned To
+          </label>
+
+          <select
+            id="assignedToId"
+            name="assignedToId"
+            [(ngModel)]="task.assignedToId">
+
+            <option [ngValue]="null">
+              Unassigned
+            </option>
+
+            <option
+              *ngFor="let user of users"
+              [ngValue]="user.id">
+
+              {{ user.firstName }} {{ user.lastName }}
+
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <!-- Due Date -->
+        <div class="form-group">
+
+          <label for="dueDate">
+            Due Date
+          </label>
+
+          <input
+            id="dueDate"
+            type="date"
+            name="dueDate"
+            [(ngModel)]="task.dueDate">
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- Actions -->
+    <div class="form-actions">
+
+      <button
+        type="button"
+        class="cancel-button"
+        (click)="cancel()"
+        [disabled]="isSaving">
+
+        Cancel
+
+      </button>
+
+      <button
+        type="submit"
+        class="update-button"
+        [disabled]="isSaving">
+
+        {{ isSaving ? 'Updating...' : 'Update Task' }}
+
+      </button>
+
+    </div>
+
+  </form>
+
+</div>

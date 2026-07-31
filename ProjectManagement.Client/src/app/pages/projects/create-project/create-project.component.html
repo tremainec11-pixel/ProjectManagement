@@ -1,0 +1,244 @@
+<div class="create-project-page">
+
+  <!-- Page Header -->
+
+  <div class="page-header">
+
+
+<div>
+
+  <h1>Create New Project</h1>
+
+  <p>
+    Create a new project and start collaborating with your team.
+  </p>
+
+</div>
+
+
+  </div>
+
+  <!-- Form Card -->
+
+  <div class="form-card">
+
+
+<form
+  #projectForm="ngForm"
+  (ngSubmit)="createProject()">
+
+
+  <!-- Project Information -->
+
+  <div class="form-section">
+
+    <div class="section-header">
+
+      <h2>Project Information</h2>
+
+      <p>
+        Provide the basic information for your project.
+      </p>
+
+    </div>
+
+
+    <!-- Project Name -->
+
+    <div class="form-group">
+
+      <label for="name">
+        Project Name
+      </label>
+
+      <input
+        id="name"
+        name="name"
+        type="text"
+        placeholder="Enter project name"
+        [(ngModel)]="project.name"
+        required>
+
+    </div>
+
+
+    <!-- Description -->
+
+    <div class="form-group">
+
+      <label for="description">
+        Description
+      </label>
+
+      <textarea
+        id="description"
+        name="description"
+        rows="5"
+        placeholder="Describe the purpose and goals of this project..."
+        [(ngModel)]="project.description"
+        required>
+      </textarea>
+
+    </div>
+
+  </div>
+
+
+  <!-- Project Details -->
+
+  <div class="form-section">
+
+    <div class="section-header">
+
+      <h2>Project Details</h2>
+
+      <p>
+        Set the project status and timeline.
+      </p>
+
+    </div>
+
+
+    <div class="form-grid">
+
+
+      <!-- Status -->
+
+      <div class="form-group">
+
+        <label for="status">
+          Status
+        </label>
+
+        <select
+          id="status"
+          name="status"
+          [(ngModel)]="project.status">
+
+          <option value="Active">
+            Active
+          </option>
+
+          <option value="Completed">
+            Completed
+          </option>
+
+          <option value="On Hold">
+            On Hold
+          </option>
+
+          <option value="Cancelled">
+            Cancelled
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- Owner -->
+
+      <div class="form-group">
+
+        <label for="ownerId">
+          Project Owner
+        </label>
+
+        <select
+          id="ownerId"
+          name="ownerId"
+          [(ngModel)]="project.ownerId"
+          required>
+
+          <option [ngValue]="null">
+            Select project owner
+          </option>
+
+          <option [ngValue]="1">
+            User 1
+          </option>
+
+          <option [ngValue]="2">
+            User 2
+          </option>
+
+          <option [ngValue]="3">
+            User 3
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <!-- Start Date -->
+
+      <div class="form-group">
+
+        <label for="startDate">
+          Start Date
+        </label>
+
+        <input
+          id="startDate"
+          name="startDate"
+          type="date"
+          [(ngModel)]="project.startDate"
+          required>
+
+      </div>
+
+
+      <!-- Due Date -->
+
+      <div class="form-group">
+
+        <label for="dueDate">
+          Due Date
+        </label>
+
+        <input
+          id="dueDate"
+          name="dueDate"
+          type="date"
+          [(ngModel)]="project.dueDate">
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Actions -->
+
+  <div class="form-actions">
+
+    <button
+      type="button"
+      class="secondary-button"
+      (click)="cancel()">
+
+      Cancel
+
+    </button>
+
+
+    <button
+type="submit"
+class="primary-button">
+
+Create Project
+
+</button>
+
+
+  </div>
+
+
+</form>
+
+
+  </div>
+
+</div>

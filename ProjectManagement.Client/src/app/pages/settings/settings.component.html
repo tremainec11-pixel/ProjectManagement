@@ -1,0 +1,739 @@
+<div class="settings-page">
+
+  <!-- =========================
+       HEADER
+  ========================== -->
+
+  <div class="settings-header">
+
+
+<div>
+
+  <h1>
+    Settings
+  </h1>
+
+  <p>
+    Manage your account preferences and application settings.
+  </p>
+
+</div>
+
+
+  </div>
+
+  <div class="settings-layout">
+
+
+<!-- =========================
+     SETTINGS NAVIGATION
+========================== -->
+
+<aside class="settings-sidebar">
+
+
+  <!-- Profile -->
+
+  <button
+    type="button"
+    [class.active]="activeSection === 'profile'"
+    (click)="changeSection('profile')">
+
+    <span class="settings-icon">
+      👤
+    </span>
+
+    <span>
+
+      <strong>
+        Profile
+      </strong>
+
+      <small>
+        Personal information
+      </small>
+
+    </span>
+
+  </button>
+
+
+  <!-- Notifications -->
+
+  <button
+    type="button"
+    [class.active]="activeSection === 'notifications'"
+    (click)="changeSection('notifications')">
+
+    <span class="settings-icon">
+      🔔
+    </span>
+
+    <span>
+
+      <strong>
+        Notifications
+      </strong>
+
+      <small>
+        Notification preferences
+      </small>
+
+    </span>
+
+  </button>
+
+
+  <!-- Security -->
+
+  <button
+    type="button"
+    [class.active]="activeSection === 'security'"
+    (click)="changeSection('security')">
+
+    <span class="settings-icon">
+      🔒
+    </span>
+
+    <span>
+
+      <strong>
+        Security
+      </strong>
+
+      <small>
+        Password and security
+      </small>
+
+    </span>
+
+  </button>
+
+
+  <!-- Appearance -->
+
+  <button
+    type="button"
+    [class.active]="activeSection === 'appearance'"
+    (click)="changeSection('appearance')">
+
+    <span class="settings-icon">
+      🎨
+    </span>
+
+    <span>
+
+      <strong>
+        Appearance
+      </strong>
+
+      <small>
+        Customize your experience
+      </small>
+
+    </span>
+
+  </button>
+
+</aside>
+
+
+
+<!-- =========================
+     SETTINGS CONTENT
+========================== -->
+
+<main class="settings-content">
+
+
+  <!-- =========================
+       PROFILE SECTION
+  ========================== -->
+
+  <section
+    class="settings-card"
+    *ngIf="activeSection === 'profile'">
+
+
+    <!-- Profile Header -->
+
+    <div class="card-header">
+
+      <div>
+
+        <h2>
+          Profile Information
+        </h2>
+
+        <p>
+          Update your personal information and account details.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- Profile Avatar -->
+
+    <div class="profile-avatar">
+
+      <div class="avatar-circle">
+
+        {{ profile.firstName.charAt(0) }}
+        {{ profile.lastName.charAt(0) }}
+
+      </div>
+
+      <div>
+
+        <h3>
+
+          {{ profile.firstName }}
+          {{ profile.lastName }}
+
+        </h3>
+
+        <p>
+          Project Administrator
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- Profile Form -->
+
+    <div class="form-grid">
+
+
+      <!-- First Name -->
+
+      <div class="form-group">
+
+        <label for="firstName">
+          First Name
+        </label>
+
+        <input
+          id="firstName"
+          type="text"
+          [(ngModel)]="profile.firstName">
+
+      </div>
+
+
+      <!-- Last Name -->
+
+      <div class="form-group">
+
+        <label for="lastName">
+          Last Name
+        </label>
+
+        <input
+          id="lastName"
+          type="text"
+          [(ngModel)]="profile.lastName">
+
+      </div>
+
+
+      <!-- Email -->
+
+      <div class="form-group full-width">
+
+        <label for="email">
+          Email Address
+        </label>
+
+        <input
+          id="email"
+          type="email"
+          [(ngModel)]="profile.email">
+
+      </div>
+
+    </div>
+
+
+    <!-- Profile Save Confirmation -->
+
+    <div
+      class="success-message"
+      *ngIf="profileSaved">
+
+      ✓ Profile information saved successfully.
+
+    </div>
+
+
+    <!-- Profile Actions -->
+
+    <div class="card-actions">
+
+      <button
+        type="button"
+        class="primary-button"
+        (click)="saveProfile()">
+
+        Save Changes
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================
+       NOTIFICATIONS SECTION
+  ========================== -->
+
+  <section
+    class="settings-card"
+    *ngIf="activeSection === 'notifications'">
+
+
+    <!-- Notification Header -->
+
+    <div class="card-header">
+
+      <h2>
+        Notifications
+      </h2>
+
+      <p>
+        Choose how you want to receive notifications.
+      </p>
+
+    </div>
+
+
+    <div class="settings-options">
+
+
+      <!-- Email Notifications -->
+
+      <div class="setting-option">
+
+        <div class="setting-info">
+
+          <strong>
+            Email Notifications
+          </strong>
+
+          <p>
+            Receive important updates and account notifications.
+          </p>
+
+        </div>
+
+        <button
+          type="button"
+          class="toggle-switch"
+          [class.active]="notifications.emailNotifications"
+          [attr.aria-pressed]="notifications.emailNotifications"
+          (click)="notifications.emailNotifications = !notifications.emailNotifications">
+
+          <span class="toggle-circle"></span>
+
+        </button>
+
+      </div>
+
+
+      <!-- Project Updates -->
+
+      <div class="setting-option">
+
+        <div class="setting-info">
+
+          <strong>
+            Project Updates
+          </strong>
+
+          <p>
+            Get notified when projects are updated.
+          </p>
+
+        </div>
+
+        <button
+          type="button"
+          class="toggle-switch"
+          [class.active]="notifications.projectUpdates"
+          [attr.aria-pressed]="notifications.projectUpdates"
+          (click)="notifications.projectUpdates = !notifications.projectUpdates">
+
+          <span class="toggle-circle"></span>
+
+        </button>
+
+      </div>
+
+
+      <!-- Task Assignments -->
+
+      <div class="setting-option">
+
+        <div class="setting-info">
+
+          <strong>
+            Task Assignments
+          </strong>
+
+          <p>
+            Receive notifications when tasks are assigned to you.
+          </p>
+
+        </div>
+
+        <button
+          type="button"
+          class="toggle-switch"
+          [class.active]="notifications.taskAssignments"
+          [attr.aria-pressed]="notifications.taskAssignments"
+          (click)="notifications.taskAssignments = !notifications.taskAssignments">
+
+          <span class="toggle-circle"></span>
+
+        </button>
+
+      </div>
+
+
+      <!-- Weekly Summary -->
+
+      <div class="setting-option">
+
+        <div class="setting-info">
+
+          <strong>
+            Weekly Summary
+          </strong>
+
+          <p>
+            Receive a weekly summary of your projects and tasks.
+          </p>
+
+        </div>
+
+        <button
+          type="button"
+          class="toggle-switch"
+          [class.active]="notifications.weeklySummary"
+          [attr.aria-pressed]="notifications.weeklySummary"
+          (click)="notifications.weeklySummary = !notifications.weeklySummary">
+
+          <span class="toggle-circle"></span>
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- Notification Save Confirmation -->
+
+    <div
+      class="success-message"
+      *ngIf="notificationSaved">
+
+      ✓ Notification preferences saved successfully.
+
+    </div>
+
+
+    <!-- Notification Actions -->
+
+    <div class="card-actions">
+
+      <button
+        type="button"
+        class="primary-button"
+        (click)="saveNotifications()">
+
+        Save Preferences
+
+      </button>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================
+       SECURITY SECTION
+  ========================== -->
+
+  <section
+    class="settings-card"
+    *ngIf="activeSection === 'security'">
+
+
+    <!-- Security Header -->
+
+    <div class="card-header">
+
+      <h2>
+        Security
+      </h2>
+
+      <p>
+        Manage your password and account security.
+      </p>
+
+    </div>
+
+
+    <!-- Password Information -->
+
+    <div
+      class="security-item"
+      *ngIf="!showPasswordForm">
+
+      <div>
+
+        <strong>
+          Password
+        </strong>
+
+        <p>
+          Update your password to keep your account secure.
+        </p>
+
+      </div>
+
+      <button
+        type="button"
+        class="secondary-button"
+        (click)="changePassword()">
+
+        Change Password
+
+      </button>
+
+    </div>
+
+
+    <!-- Change Password Form -->
+
+    <div
+      class="password-form"
+      *ngIf="showPasswordForm">
+
+
+      <!-- Password Form Header -->
+
+      <div class="password-form-header">
+
+        <h3>
+          Change Password
+        </h3>
+
+        <p>
+          Enter your current password and choose a new secure password.
+        </p>
+
+      </div>
+
+
+      <!-- Current Password -->
+
+      <div class="form-group">
+
+        <label for="currentPassword">
+          Current Password
+        </label>
+
+        <input
+          id="currentPassword"
+          type="password"
+          placeholder="Enter current password"
+          [(ngModel)]="passwordData.currentPassword">
+
+      </div>
+
+
+      <!-- New Password -->
+
+      <div class="form-group">
+
+        <label for="newPassword">
+          New Password
+        </label>
+
+        <input
+          id="newPassword"
+          type="password"
+          placeholder="Enter new password"
+          [(ngModel)]="passwordData.newPassword">
+
+      </div>
+
+
+      <!-- Confirm Password -->
+
+      <div class="form-group">
+
+        <label for="confirmPassword">
+          Confirm New Password
+        </label>
+
+        <input
+          id="confirmPassword"
+          type="password"
+          placeholder="Confirm new password"
+          [(ngModel)]="passwordData.confirmPassword">
+
+      </div>
+
+
+      <!-- Password Actions -->
+
+      <div class="password-actions">
+
+        <button
+          type="button"
+          class="secondary-button"
+          (click)="cancelPasswordChange()">
+
+          Cancel
+
+        </button>
+
+        <button
+          type="button"
+          class="primary-button"
+          (click)="savePassword()">
+
+          Update Password
+
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- Two Factor Authentication -->
+
+    <div
+      class="security-item"
+      *ngIf="!showPasswordForm">
+
+      <div>
+
+        <strong>
+          Two-Factor Authentication
+        </strong>
+
+        <p>
+          Add an extra layer of security to your account.
+        </p>
+
+      </div>
+
+      <span class="status-badge">
+        Not Enabled
+      </span>
+
+    </div>
+
+  </section>
+
+
+
+  <!-- =========================
+       APPEARANCE 
+  ========================== -->
+
+  <section class="settings-card" *ngIf="activeSection === 'appearance'">
+
+<!-- Appearance Header -->
+
+<div class="card-header">
+
+<h2>
+  Appearance
+</h2>
+
+<p>
+  Customize how the application looks and feels.
+</p>
+
+</div>
+
+<!-- Theme Options -->
+
+<div class="appearance-options">
+
+<!-- Light Mode -->
+
+<button
+  type="button"
+  class="theme-option"
+  [class.active]="selectedTheme === 'light'"
+  (click)="changeTheme('light')">
+
+  <div class="theme-preview light-theme">
+    ☀️
+  </div>
+
+  <div class="theme-content">
+
+    <strong>
+      Light Mode
+    </strong>
+
+    <p>
+      Use the light theme across the application.
+    </p>
+
+  </div>
+
+</button>
+
+
+<!-- Dark Mode -->
+
+<button
+  type="button"
+  class="theme-option"
+  [class.active]="selectedTheme === 'dark'"
+  (click)="changeTheme('dark')">
+
+  <div class="theme-preview dark-theme">
+    🌙
+  </div>
+
+  <div class="theme-content">
+
+    <strong>
+      Dark Mode
+    </strong>
+
+    <p>
+      Use a darker theme for a comfortable experience.
+    </p>
+
+  </div>
+
+</button>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+  </div>
+
+</div>

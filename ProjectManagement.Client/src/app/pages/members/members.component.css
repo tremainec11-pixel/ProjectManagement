@@ -1,0 +1,488 @@
+.members-page {
+  padding: 32px;
+  background: #f8fafc;
+  min-height: calc(100vh - 64px);
+}
+
+/* ========================================
+   PAGE HEADER
+======================================== */
+
+.page-header {
+  margin-bottom: 28px;
+}
+
+.page-header h1 {
+  margin: 0 0 6px;
+  font-size: 30px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.page-header p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 15px;
+}
+
+/* ========================================
+   STATISTICS
+======================================== */
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 32px;
+}
+
+.stat-card {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.08);
+}
+
+/* ========================================
+   ICON
+======================================== */
+
+.stat-icon {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+/* Total Members - Blue */
+
+.stat-card:nth-child(1) .stat-icon {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+/* Active Members - Green */
+
+.stat-card:nth-child(2) .stat-icon {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+/* Team Members - Yellow */
+
+.stat-card:nth-child(3) .stat-icon {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+/* ========================================
+   STATISTICS TEXT
+======================================== */
+
+.stat-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.stat-label {
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 700;
+  color: #111827;
+}
+
+:host-context(.dark-mode) .stat-value {
+  color: #ffffff !important;
+}
+
+/* ========================================
+   MEMBERS SECTION
+======================================== */
+
+.members-section {
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+.section-header {
+  margin-bottom: 20px;
+}
+
+.section-header h2 {
+  margin: 0 0 6px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.section-header p {
+  margin: 0;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+/* ========================================
+   SEARCH
+======================================== */
+
+.search-container {
+  position: relative;
+  width: 450px;
+  max-width: 100%;
+  margin-bottom: 20px;
+}
+
+.search-container input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 16px 11px 42px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #111827;
+  background: #ffffff;
+  outline: none;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.search-container input::placeholder {
+  color: #9ca3af;
+}
+
+.search-container input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 16px;
+  color: #6b7280;
+  pointer-events: none;
+}
+
+/* ========================================
+   TABLE
+======================================== */
+
+.table-container {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.members-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.members-table th {
+  padding: 14px 16px;
+  text-align: left;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #6b7280;
+  background: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.members-table td {
+  padding: 16px;
+  font-size: 14px;
+  color: #374151;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+.members-table tbody tr:hover {
+  background: #f9fafb;
+}
+
+/* ========================================
+   MEMBER
+======================================== */
+
+.member-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.member-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: #6366f1;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.member-name {
+  font-weight: 600;
+  color: #111827;
+}
+
+.member-email {
+  color: #6b7280;
+}
+
+/* ========================================
+   ROLE
+======================================== */
+
+.role {
+  color: #374151;
+}
+
+/* ========================================
+   STATUS
+======================================== */
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status.active {
+  background: #dcfce7;
+  color: #166534;
+}
+
+/* ========================================
+   MESSAGES
+======================================== */
+
+.message {
+  padding: 24px;
+  text-align: center;
+  color: #6b7280;
+  font-size: 14px;
+}
+
+.message.error {
+  color: #dc2626;
+  background: #fef2f2;
+  border-radius: 8px;
+}
+
+.empty-state {
+  padding: 32px !important;
+  text-align: center;
+  color: #9ca3af !important;
+}
+
+/* ========================================
+   DARK MODE
+======================================== */
+
+body.dark-theme .members-page {
+  background: #0b1120;
+}
+
+body.dark-theme .page-header h1 {
+  color: #ffffff;
+}
+
+body.dark-theme .page-header p {
+  color: #ffffff;
+}
+
+/* Statistics */
+
+body.dark-theme .stat-card {
+  background: #111827;
+  border-color: #1f2937;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+body.dark-theme .stat-card:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+body.dark-theme .stat-label {
+  color: #ffffff;
+}
+
+:host-context(body.dark-theme) .stat-value {
+  color: #ffffff !important;
+}
+
+/* Dark Mode Icons */
+
+body.dark-theme .stat-card:nth-child(1) .stat-icon {
+  background: #1e3a8a;
+  color: #60a5fa;
+}
+
+body.dark-theme .stat-card:nth-child(2) .stat-icon {
+  background: #14532d;
+  color: #4ade80;
+}
+
+body.dark-theme .stat-card:nth-child(3) .stat-icon {
+  background: #713f12;
+  color: #facc15;
+}
+
+/* Members Section */
+
+body.dark-theme .members-section {
+  background: #111827;
+  border-color: #1f2937;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+body.dark-theme .section-header h2 {
+  color: #ffffff;
+}
+
+body.dark-theme .section-header p {
+  color: #ffffff;
+}
+
+/* Search */
+
+body.dark-theme .search-container input {
+  border-color: #374151;
+  color: #ffffff;
+  background: #0f172a;
+}
+
+body.dark-theme .search-container input::placeholder {
+  color: #ffffff;
+}
+
+body.dark-theme .search-icon {
+  color: #94a3b8;
+}
+
+/* Table */
+
+/* Table */
+
+:host-context(body.dark-theme) .members-table th {
+  color: #ffffff;
+  background: #0f172a;
+  border-bottom-color: #1f2937;
+}
+
+:host-context(body.dark-theme) .members-table td {
+  color: #ffffff !important;
+  border-bottom-color: #1f2937;
+}
+
+:host-context(body.dark-theme) .members-table tbody tr:hover {
+  background: #1e293b;
+}
+
+/* Member */
+
+:host-context(body.dark-theme) .member-avatar {
+  background: #d8d9dd;
+  color: #60a5fa;
+}
+
+:host-context(body.dark-theme) .member-name {
+  color: #ffffff !important;
+}
+
+:host-context(body.dark-theme) .member-email {
+  color: #ffffff !important;
+}
+
+/* Role */
+
+:host-context(body.dark-theme) .role {
+  color: #ffffff !important;
+}
+
+/* Status */
+
+body.dark-theme .status.active {
+  background: #14532d;
+  color: #4ade80;
+}
+
+/* Messages */
+
+body.dark-theme .message {
+  color: #94a3b8;
+}
+
+body.dark-theme .message.error {
+  color: #f87171;
+  background: #450a0a;
+}
+
+body.dark-theme .empty-state {
+  color: #64748b !important;
+}
+
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 900px) {
+  .stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .members-page {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  .members-section {
+    padding: 16px;
+  }
+
+  .page-header h1 {
+    font-size: 24px;
+  }
+
+  .members-table th,
+  .members-table td {
+    padding: 12px;
+  }
+}

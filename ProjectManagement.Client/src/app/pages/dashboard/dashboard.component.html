@@ -1,0 +1,331 @@
+<div class="dashboard">
+
+  <!-- Dashboard Header -->
+
+  <div class="dashboard-header">
+
+
+<div>
+  <h1>Dashboard</h1>
+  <p>
+    Welcome back, Tremaine. Here's what's happening with your projects.
+  </p>
+</div>
+
+<button
+  class="primary-button"
+  type="button"
+  (click)="createProject()">
+
+  <span>+</span>
+  New Project
+
+</button>
+
+
+  </div>
+
+  <!-- Error Message -->
+
+  <div
+    *ngIf="errorMessage"
+    class="error-message">
+
+
+{{ errorMessage }}
+
+<button
+  type="button"
+  (click)="loadDashboard()">
+
+  Try Again
+
+</button>
+
+
+  </div>
+
+  <!-- Loading State -->
+
+  <div
+    *ngIf="isLoading"
+    class="loading-state">
+
+<p>Loading dashboard...</p>
+
+
+  </div>
+
+  <!-- Dashboard Content -->
+
+<ng-container *ngIf="!isLoading">
+
+
+<!-- Statistics -->
+<div class="stats-grid">
+
+  <app-stat-card
+    title="Total Projects"
+    [value]="totalProjects"
+    subtitle="Projects across your workspace"
+    icon="folder"
+    trend="+12%"
+    [trendPositive]="true">
+  </app-stat-card>
+
+
+  <app-stat-card
+    title="Active Projects"
+    [value]="activeProjects"
+    subtitle="Projects currently in progress"
+    icon="work"
+    trend="+8%"
+    [trendPositive]="true">
+  </app-stat-card>
+
+
+  <app-stat-card
+  title="Team Members"
+  [value]="totalUsers"
+  subtitle="Members working on projects"
+  icon="group"
+  trend="+1"
+  [trendPositive]="true">
+</app-stat-card>
+
+
+  <app-stat-card
+    title="Completed Projects"
+    [value]="completedProjects"
+    subtitle="Projects completed"
+    icon="task_alt"
+    trend="+15%"
+    [trendPositive]="true">
+  </app-stat-card>
+
+</div>
+
+
+<!-- Recent Projects -->
+<section class="dashboard-section">
+
+  <div class="section-header">
+
+    <div>
+      <h2>Recent Projects</h2>
+      <p>Your latest projects</p>
+    </div>
+
+    <button
+      type="button"
+      class="secondary-button"
+      (click)="router.navigate(['/projects'])">
+
+      View All
+
+    </button>
+
+  </div>
+
+
+  <!-- Empty State -->
+  <div
+    *ngIf="recentProjects.length === 0"
+    class="empty-state">
+
+    <div class="empty-icon">
+      folder
+    </div>
+
+    <h3>No projects yet</h3>
+
+    <p>
+      Create your first project to get started.
+    </p>
+
+    <button
+      type="button"
+      class="primary-button"
+      (click)="createProject()">
+
+      Create Project
+
+    </button>
+
+  </div>
+
+
+  <!-- Projects List -->
+  <div
+    *ngIf="recentProjects.length > 0"
+    class="projects-list">
+
+    <div
+      class="project-item"
+      *ngFor="let project of recentProjects">
+
+      <div class="project-info">
+
+  <div class="project-icon">
+    <mat-icon>folder</mat-icon>
+  </div>
+
+  <div>
+
+          <h3>
+            {{ project.name }}
+          </h3>
+
+          <p>
+            {{ project.description || 'No description available.' }}
+          </p>
+
+        </div>
+
+      </div>
+
+
+      <div class="project-actions">
+
+        <span
+          class="project-status">
+
+          {{ getProjectStatus(project) }}
+
+        </span>
+
+        <button
+          type="button"
+          class="view-button"
+          (click)="viewProject(project)">
+
+          View
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- Coming Soon Dashboard Sections -->
+<div class="dashboard-grid">
+
+  <section class="dashboard-section">
+
+    <div class="section-header">
+
+      <div>
+        <h2>Recent Tasks</h2>
+        <p>Your latest tasks</p>
+      </div>
+
+    </div>
+
+    <!-- Empty Tasks State -->
+
+<div
+  *ngIf="recentTasks.length === 0"
+  class="empty-state compact">
+
+  <h3>No tasks yet</h3>
+
+  <p>
+    Tasks assigned to your projects will appear here.
+  </p>
+
+</div>
+
+
+<!-- Recent Tasks List -->
+
+<div
+  *ngIf="recentTasks.length > 0"
+  class="tasks-list">
+
+  <div
+    class="task-item"
+    *ngFor="let task of recentTasks">
+
+    <div class="task-info">
+
+  <div class="task-icon">
+    <mat-icon>task_alt</mat-icon>
+  </div>
+
+  <div>
+
+        <h3>
+          {{ task.title }}
+        </h3>
+
+        <p>
+          {{ task.description || 'No description available.' }}
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="task-details">
+
+      <span class="task-status">
+        {{ task.status }}
+      </span>
+
+      <span class="task-priority">
+        {{ task.priority }}
+      </span>
+
+      <span
+        *ngIf="task.assignedToName"
+        class="task-assignee">
+
+        {{ task.assignedToName }}
+
+      </span>
+
+    </div>
+
+  </div>
+
+</div>
+
+  </section>
+
+
+  <section class="dashboard-section">
+
+    <div class="section-header">
+
+      <div>
+        <h2>Recent Activity</h2>
+        <p>Latest workspace activity</p>
+      </div>
+
+    </div>
+
+    <div class="empty-state compact">
+
+      <h3>Activity coming next</h3>
+
+      <p>
+        Recent project and task activity
+        will appear here.
+      </p>
+
+    </div>
+
+  </section>
+
+</div>
+
+
+  </ng-container>
+
+</div>
