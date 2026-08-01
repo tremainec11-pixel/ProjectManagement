@@ -212,3 +212,90 @@ width: 100%;
 }
 
 }
+/* ========================================
+CREATE PROJECT - DARK FORM BACKGROUND
+======================================== */
+
+:host-context(body.dark-theme) .create-project-page {
+background: transparent;
+}
+
+:host-context(body.dark-theme) .create-project-content,
+:host-context(body.dark-theme) .create-project-form,
+:host-context(body.dark-theme) .form-container {
+background: #0b1120;
+}
+
+/* Form Cards */
+
+:host-context(body.dark-theme) .form-card {
+background: #111827 !important;
+border-color: #1f2937 !important;
+}
+
+/* Card Text */
+
+:host-context(body.dark-theme) .form-card h2 {
+color: #f8fafc !important;
+}
+
+:host-context(body.dark-theme) .form-card p {
+color: #94a3b8 !important;
+}
+
+/* Labels */
+
+:host-context(body.dark-theme) .form-card label {
+color: #e2e8f0 !important;
+}
+
+/* Inputs */
+
+:host-context(body.dark-theme) .form-card input,
+:host-context(body.dark-theme) .form-card textarea,
+:host-context(body.dark-theme) .form-card select {
+background: #1e293b !important;
+border-color: #334155 !important;
+color: #f8fafc !important;
+}
+
+/* Placeholder */
+
+:host-context(body.dark-theme) .form-card input::placeholder,
+:host-context(body.dark-theme) .form-card textarea::placeholder {
+color: #64748b !important;
+}
+
+/* Select */
+
+:host-context(body.dark-theme) .form-card select option {
+background: #1e293b;
+color: #f8fafc;
+}
+
+/* Date */
+
+:host-context(body.dark-theme) .form-card input[type="date"] {
+color-scheme: dark;
+}
+
+/* Buttons Area */
+
+:host-context(body.dark-theme) .form-actions {
+background: #0b1120;
+}
+
+/* Cancel */
+
+:host-context(body.dark-theme) .form-actions .secondary-button {
+background: #1e293b;
+border-color: #334155;
+color: #e2e8f0;
+}
+
+/* Create Project */
+
+:host-context(body.dark-theme) .form-actions .primary-button {
+background: #f8fafc;
+color: #0f172a;
+}

@@ -121,7 +121,7 @@ color: #111827;
 
 .projects-card {
   padding: 24px;
-  background: #ffffff;
+  background: #111827;
   border: 1px solid #e5e7eb;
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
@@ -459,4 +459,84 @@ margin: 20px auto 0;
 grid-template-columns: 1fr;
 }
 
+}
+/* ========================================
+PROJECTS - LIGHT MODE
+======================================== */
+
+:host-context(body.light-theme) .projects-card {
+background: #ffffff;
+border-color: #e5e7eb;
+}
+
+:host-context(body.light-theme) .search-box {
+background: #ffffff;
+border-color: #d1d5db;
+}
+
+:host-context(body.light-theme) .search-box input {
+background: transparent;
+color: #111827;
+}
+
+:host-context(body.light-theme) .search-box input::placeholder {
+color: #6b7280;
+}
+
+:host-context(body.light-theme) .projects-toolbar select {
+background: #ffffff;
+border-color: #d1d5db;
+color: #374151;
+}
+
+:host-context(body.light-theme) .project-card {
+background: #ffffff;
+border-color: #e5e7eb;
+}
+
+:host-context(body.light-theme) .project-card-header {
+border-color: #f1f5f9;
+}
+
+:host-context(body.light-theme) .project-content h3 {
+color: #111827;
+}
+
+:host-context(body.light-theme) .project-content > p {
+color: #6b7280;
+}
+
+:host-context(body.light-theme) .project-dates span,
+:host-context(body.light-theme) .project-meta span {
+color: #9ca3af;
+}
+
+:host-context(body.light-theme) .project-dates strong,
+:host-context(body.light-theme) .project-meta strong {
+color: #374151;
+}
+
+:host-context(body.light-theme) .project-actions {
+background: #ffffff;
+border-color: #f1f5f9;
+}
+
+:host-context(body.light-theme) .project-actions button {
+background: #ffffff;
+border-color: #d1d5db;
+color: #374151;
+}
+
+:host-context(body.light-theme) .project-actions button:hover {
+background: #f9fafb;
+}
+
+:host-context(body.light-theme) .project-actions .delete-button {
+background: #ffffff;
+border-color: #fecaca;
+color: #dc2626;
+}
+
+:host-context(body.light-theme) .project-actions .delete-button:hover {
+background: #fef2f2;
 }

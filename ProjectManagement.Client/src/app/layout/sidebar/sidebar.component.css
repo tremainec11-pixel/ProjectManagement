@@ -226,3 +226,14 @@ body.dark-theme .sidebar {
   color: #94a3b8;
   font-size: 21px;
 }
+/* ========================================
+   DARK MODE - SIDEBAR BRAND
+======================================== */
+
+:host-context(body.dark-theme) .logo-title {
+  color: #ffffff !important;
+}
+
+:host-context(body.dark-theme) .logo-subtitle {
+  color: #cbd5e1 !important;
+}

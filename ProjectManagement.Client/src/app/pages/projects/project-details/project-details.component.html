@@ -1,0 +1,509 @@
+<div class="project-details-page">
+
+  <!-- Loading -->
+
+  <div
+    class="empty-state"
+    *ngIf="isLoading">
+
+
+<div>⏳</div>
+
+<h3>
+  Loading project...
+</h3>
+
+<p>
+  Please wait while we load the project details.
+</p>
+
+
+  </div>
+
+  <!-- Error -->
+
+  <div
+    class="empty-state"
+    *ngIf="!isLoading && errorMessage">
+
+
+<div>⚠️</div>
+
+<h3>
+  Unable to load project
+</h3>
+
+<p>
+  {{ errorMessage }}
+</p>
+
+<button
+  type="button"
+  class="primary-button"
+  (click)="goBack()">
+
+  Back to Projects
+
+</button>
+
+
+  </div>
+
+  <!-- Project Details -->
+
+  <div
+    *ngIf="!isLoading && !errorMessage && project">
+
+
+<!-- Header -->
+
+<div class="details-header">
+
+  <div class="header-content">
+
+    <button
+      type="button"
+      class="back-button"
+      (click)="goBack()">
+
+      ← Back to Projects
+
+    </button>
+
+    <div class="title-row">
+
+      <div class="project-icon">
+        {{ project.name.charAt(0).toUpperCase() }}
+      </div>
+
+      <div>
+
+        <h1>
+          {{ project.name }}
+        </h1>
+
+        <p>
+          {{ project.description }}
+        </p>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Status -->
+
+  <span
+    class="status-badge"
+    [ngClass]="project.status.toLowerCase().replace(' ', '-')">
+
+    {{ project.status }}
+
+  </span>
+
+</div>
+
+
+<!-- Quick Stats -->
+
+<div class="quick-stats">
+
+  <div class="quick-stat-card">
+
+    <div class="quick-stat-icon">
+      📅
+    </div>
+
+    <div>
+
+      <span>
+        Start Date
+      </span>
+
+      <strong>
+        {{ project.startDate | date:'MMM d, y' }}
+      </strong>
+
+    </div>
+
+  </div>
+
+
+  <div class="quick-stat-card">
+
+    <div class="quick-stat-icon">
+      ⏳
+    </div>
+
+    <div>
+
+      <span>
+        Due Date
+      </span>
+
+      <strong>
+
+        {{
+          project.dueDate
+            ? (project.dueDate | date:'MMM d, y')
+            : 'No deadline'
+        }}
+
+      </strong>
+
+    </div>
+
+  </div>
+
+
+  <div class="quick-stat-card">
+
+    <div class="quick-stat-icon">
+      👤
+    </div>
+
+    <div>
+
+      <span>
+        Project Owner
+      </span>
+
+      <strong>
+        {{ project.ownerName }}
+      </strong>
+
+    </div>
+
+  </div>
+
+
+  <div class="quick-stat-card">
+
+    <div class="quick-stat-icon">
+      👥
+    </div>
+
+    <div>
+
+      <span>
+        Team Members
+      </span>
+
+      <strong>
+        {{ project.memberCount }}
+      </strong>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- Overview -->
+
+<div class="details-grid">
+
+  <!-- Project Information -->
+
+  <div class="details-card">
+
+    <div class="card-header">
+
+      <div>
+
+        <h2>
+          Project Information
+        </h2>
+
+        <p>
+          General information about this project.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="info-grid">
+
+      <div class="info-item">
+
+        <span>
+          Project Name
+        </span>
+
+        <strong>
+          {{ project.name }}
+        </strong>
+
+      </div>
+
+
+      <div class="info-item">
+
+        <span>
+          Created Date
+        </span>
+
+        <strong>
+          {{ project.createdAt | date:'MMM d, y' }}
+        </strong>
+
+      </div>
+
+
+      <div class="info-item">
+
+        <span>
+          Start Date
+        </span>
+
+        <strong>
+          {{ project.startDate | date:'MMM d, y' }}
+        </strong>
+
+      </div>
+
+
+      <div class="info-item">
+
+        <span>
+          Due Date
+        </span>
+
+        <strong>
+
+          {{
+            project.dueDate
+              ? (project.dueDate | date:'MMM d, y')
+              : 'No deadline'
+          }}
+
+        </strong>
+
+      </div>
+
+
+      <div class="info-item">
+
+        <span>
+          Owner
+        </span>
+
+        <strong>
+          {{ project.ownerName }}
+        </strong>
+
+      </div>
+
+
+      <div class="info-item">
+
+        <span>
+          Team Members
+        </span>
+
+        <strong>
+          {{ project.memberCount }}
+        </strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- Project Status -->
+
+  <div class="details-card">
+
+    <div class="card-header">
+
+      <div>
+
+        <h2>
+          Project Status
+        </h2>
+
+        <p>
+          Current status of this project.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="status-content">
+
+      <div
+        class="large-status-icon"
+        [ngClass]="project.status.toLowerCase().replace(' ', '-')">
+
+        {{ project.status.charAt(0).toUpperCase() }}
+
+      </div>
+
+      <div>
+
+        <strong>
+          {{ project.status }}
+        </strong>
+
+        <p>
+          This project is currently marked as {{ project.status | lowercase }}.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <div class="status-summary">
+
+      <div>
+
+        <span>
+          Owner
+        </span>
+
+        <strong>
+          {{ project.ownerName }}
+        </strong>
+
+      </div>
+
+      <div>
+
+        <span>
+          Members
+        </span>
+
+        <strong>
+          {{ project.memberCount }}
+        </strong>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- Project Workspace -->
+
+<div class="details-card coming-soon-card">
+
+  <div class="card-header">
+
+    <div>
+
+      <h2>
+        Project Workspace
+      </h2>
+
+      <p>
+        Manage everything related to this project from one place.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div class="workspace-grid">
+
+    <!-- Tasks -->
+
+    <div class="workspace-item">
+
+      <div class="workspace-icon">
+        📋
+      </div>
+
+      <strong>
+        Tasks
+      </strong>
+
+      <span>
+        Manage and track project tasks.
+      </span>
+
+      <button
+        type="button"
+        class="workspace-button">
+
+        View Tasks
+
+      </button>
+
+    </div>
+
+
+    <!-- Team Members -->
+
+    <div class="workspace-item">
+
+      <div class="workspace-icon">
+        👥
+      </div>
+
+      <strong>
+        Team Members
+      </strong>
+
+      <span>
+        View and manage project members.
+      </span>
+
+      <button
+        type="button"
+        class="workspace-button">
+
+        View Team
+
+      </button>
+
+    </div>
+
+
+    <!-- Activity -->
+
+    <div class="workspace-item">
+
+      <div class="workspace-icon">
+        🕒
+      </div>
+
+      <strong>
+        Activity
+      </strong>
+
+      <span>
+        View recent project activity.
+      </span>
+
+      <button
+        type="button"
+        class="workspace-button">
+
+        View Activity
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+  </div>
+
+</div>

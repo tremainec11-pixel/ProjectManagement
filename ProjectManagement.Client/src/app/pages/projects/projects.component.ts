@@ -126,14 +126,7 @@ createProject(): void {
 }
 
 viewProject(project: Project): void {
-
-
-console.log(
-  'View project:',
-  project
-);
-
-
+  this.router.navigate(['/projects', project.id]);
 }
 
 editProject(project: Project): void {

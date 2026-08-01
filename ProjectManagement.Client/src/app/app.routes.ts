@@ -6,6 +6,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 
 import { ProjectsComponent } from './pages/projects/projects.component';
 import { CreateProjectComponent } from './pages/projects/create-project/create-project.component';
+import { ProjectDetailsComponent } from './pages/projects/project-details/project-details.component';
 
 import { TasksComponent } from './pages/tasks/tasks.component';
 import { CreateTaskComponent } from './pages/tasks/create-task/create-task.component';
@@ -48,6 +49,11 @@ export const routes: Routes = [
       {
         path: 'projects/create',
         component: CreateProjectComponent
+      },
+
+      {
+        path: 'projects/:id',
+        component: ProjectDetailsComponent
       },
 
 

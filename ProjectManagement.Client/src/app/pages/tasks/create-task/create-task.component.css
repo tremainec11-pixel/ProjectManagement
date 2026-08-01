@@ -294,4 +294,137 @@
     width: 100%;
   }
 }
+/* =========================
+   DARK MODE
+========================= */
 
+:host-context(body.dark-theme) .create-task-page {
+  color: #f8fafc;
+}
+
+/* =========================
+   PAGE HEADER
+========================= */
+
+:host-context(body.dark-theme) .page-header h1 {
+  color: #f8fafc;
+}
+
+:host-context(body.dark-theme) .page-header p {
+  color: #94a3b8;
+}
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+:host-context(body.dark-theme) .back-button {
+  background: #111827;
+  border-color: #374151;
+  color: #f8fafc;
+}
+
+:host-context(body.dark-theme) .back-button:hover {
+  background: #1f2937;
+  border-color: #4b5563;
+}
+
+/* =========================
+   FORM SECTIONS
+========================= */
+
+:host-context(body.dark-theme) .form-section {
+  background: #111827;
+  border-color: #1f2937;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+/* =========================
+   SECTION HEADER
+========================= */
+
+:host-context(body.dark-theme) .section-header h2 {
+  color: #f8fafc;
+}
+
+:host-context(body.dark-theme) .section-header p {
+  color: #94a3b8;
+}
+
+/* =========================
+   LABELS
+========================= */
+
+:host-context(body.dark-theme) .form-group label {
+  color: #e2e8f0;
+}
+
+/* =========================
+   INPUTS / TEXTAREA / SELECT
+========================= */
+
+:host-context(body.dark-theme) .form-group input,
+:host-context(body.dark-theme) .form-group textarea,
+:host-context(body.dark-theme) .form-group select {
+  background: #0f172a;
+  border-color: #374151;
+  color: #f8fafc;
+}
+
+/* Placeholder */
+
+:host-context(body.dark-theme) .form-group input::placeholder,
+:host-context(body.dark-theme) .form-group textarea::placeholder {
+  color: #64748b;
+}
+
+/* Focus */
+
+:host-context(body.dark-theme) .form-group input:focus,
+:host-context(body.dark-theme) .form-group textarea:focus,
+:host-context(body.dark-theme) .form-group select:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+}
+
+/* Select options */
+
+:host-context(body.dark-theme) .form-group select option {
+  background: #0f172a;
+  color: #f8fafc;
+}
+
+/* =========================
+   CANCEL BUTTON
+========================= */
+
+:host-context(body.dark-theme) .cancel-button {
+  background: #111827;
+  border-color: #374151;
+  color: #f8fafc;
+}
+
+:host-context(body.dark-theme) .cancel-button:hover:not(:disabled) {
+  background: #1f2937;
+  border-color: #4b5563;
+}
+
+/* =========================
+   ERROR
+========================= */
+
+:host-context(body.dark-theme) .error-message {
+  background: #450a0a;
+  border-color: #7f1d1d;
+  color: #fecaca;
+}
+
+/* =========================
+   LOADING
+========================= */
+
+:host-context(body.dark-theme) .loading-message {
+  background: #111827;
+  border-color: #1f2937;
+  color: #94a3b8;
+}

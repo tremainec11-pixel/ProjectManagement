@@ -165,10 +165,32 @@
    DARK MODE
 ======================================== */
 
-body.dark-theme .header {
-  background: #111827;
-  border-bottom-color: #1f2937;
+:host-context(body.dark-theme) .header {
+  background: #111827 !important;
+  border-bottom-color: #1f2937 !important;
 }
+
+:host-context(body.light-theme) .header {
+  background: #ffffff !important;
+  border-bottom-color: #e5e7eb !important;
+}
+
+:host-context(body.dark-theme) .page-title {
+  color: #f8fafc !important;
+}
+
+:host-context(body.dark-theme) .page-subtitle {
+  color: #94a3b8 !important;
+}
+
+:host-context(body.light-theme) .page-title {
+  color: #111827 !important;
+}
+
+:host-context(body.light-theme) .page-subtitle {
+  color: #6b7280 !important;
+}
+
 
 /* TÍTULO: BLANCO EN DARK MODE */
 
@@ -275,4 +297,7 @@ body.light-theme .dropdown-icon {
 
 body.light-theme .notification-dot {
   border-color: #ffffff;
+}
+:host-context(body.dark-theme) .header-user-name {
+  color: #ffffff !important;
 }
