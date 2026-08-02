@@ -1,4 +1,4 @@
 export const environment = {
-  production: false,
-  apiUrl: 'http://localhost:5086/api'
+  production: true,
+  apiUrl: 'https://projectmanagement-1-3774.onrender.com/api'
 };
