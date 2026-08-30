@@ -41,11 +41,17 @@ builder.Services.AddCors(options =>
 // Database
 // =========================
 
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(
-        builder.Configuration.GetConnectionString("DefaultConnection")
-    ));
+var connectionString = builder.Configuration
+    .GetConnectionString("DefaultConnection");
 
+Console.WriteLine("=================================");
+Console.WriteLine(
+    $"DATABASE CONNECTION CONFIGURED: {!string.IsNullOrWhiteSpace(connectionString)}");
+Console.WriteLine("=================================");
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseNpgsql(connectionString));
+    
 // =========================
 // Services
 // =========================
