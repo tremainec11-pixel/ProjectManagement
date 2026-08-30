@@ -17,25 +17,22 @@ public class ProjectService : IProjectService
     }
 
     public async Task<IEnumerable<ProjectDto>> GetAllAsync()
-    {
-        return await _context.Projects
-            .AsNoTracking()
-            .Select(p => new ProjectDto
-            {
-                Id = p.Id,
-                Name = p.Name,
-                Description = p.Description,
-                Status = p.Status,
-                StartDate = p.StartDate,
-                DueDate = p.DueDate,
-                CreatedAt = p.CreatedAt,
-                OwnerId = p.OwnerId,
-                OwnerName = p.Owner.FirstName + " " + p.Owner.LastName,
-                MemberCount = _context.ProjectMembers
-                    .Count(pm => pm.ProjectId == p.Id)
-            })
-            .ToListAsync();
-    }
+{
+    return await _context.Projects
+        .AsNoTracking()
+        .Select(p => new ProjectDto
+        {
+            Id = p.Id,
+            Name = p.Name,
+            Description = p.Description,
+            Status = p.Status,
+            StartDate = p.StartDate,
+            DueDate = p.DueDate,
+            CreatedAt = p.CreatedAt,
+            OwnerId = p.OwnerId
+        })
+        .ToListAsync();
+}
 
     public async Task<ProjectDto?> GetByIdAsync(int id)
     {
