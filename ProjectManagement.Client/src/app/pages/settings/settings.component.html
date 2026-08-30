@@ -655,8 +655,6 @@
 
   <section class="settings-card" *ngIf="activeSection === 'appearance'">
 
-<!-- Appearance Header -->
-
 <div class="card-header">
 
 <h2>
@@ -669,11 +667,9 @@
 
 </div>
 
-<!-- Theme Options -->
-
 <div class="appearance-options">
 
-<!-- Light Mode -->
+<!-- LIGHT MODE -->
 
 <button
   type="button"
@@ -685,7 +681,7 @@
     ☀️
   </div>
 
-  <div class="theme-content">
+  <div class="theme-info">
 
     <strong>
       Light Mode
@@ -697,10 +693,18 @@
 
   </div>
 
+  <span
+    class="theme-check"
+    *ngIf="selectedTheme === 'light'">
+
+    ✓
+
+  </span>
+
 </button>
 
 
-<!-- Dark Mode -->
+<!-- DARK MODE -->
 
 <button
   type="button"
@@ -712,7 +716,7 @@
     🌙
   </div>
 
-  <div class="theme-content">
+  <div class="theme-info">
 
     <strong>
       Dark Mode
@@ -723,6 +727,14 @@
     </p>
 
   </div>
+
+  <span
+    class="theme-check"
+    *ngIf="selectedTheme === 'dark'">
+
+    ✓
+
+  </span>
 
 </button>
 

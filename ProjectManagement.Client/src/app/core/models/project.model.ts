@@ -4,7 +4,7 @@ export interface Project {
   description: string;
   status: string;
   startDate: string;
-  dueDate: string;
+  dueDate: string | null;
   createdAt: string;
   ownerId: number;
   ownerName: string;

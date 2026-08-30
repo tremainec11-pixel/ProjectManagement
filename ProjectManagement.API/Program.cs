@@ -5,6 +5,8 @@ using ProjectManagement.Application.Services;
 using ProjectManagement.Infrastructure.Data;
 using ProjectManagement.Infrastructure.Services;
 
+Environment.SetEnvironmentVariable("DOTNET_USE_POLLING_FILE_WATCHER", "true");
+
 var builder = WebApplication.CreateBuilder(args);
 
 // =========================
