@@ -18,21 +18,38 @@ public class ProjectService : IProjectService
 
     public async Task<IEnumerable<ProjectDto>> GetAllAsync()
 {
-    var projects = await _context.Projects
-        .AsNoTracking()
-        .ToListAsync();
-
-    return projects.Select(p => new ProjectDto
+    try
     {
-        Id = p.Id,
-        Name = p.Name,
-        Description = p.Description,
-        Status = p.Status,
-        StartDate = p.StartDate,
-        DueDate = p.DueDate,
-        CreatedAt = p.CreatedAt,
-        OwnerId = p.OwnerId
-    });
+        Console.WriteLine("=== GET PROJECTS START ===");
+
+        var canConnect = await _context.Database.CanConnectAsync();
+
+        Console.WriteLine($"DATABASE CAN CONNECT: {canConnect}");
+
+        var projects = await _context.Projects
+            .AsNoTracking()
+            .ToListAsync();
+
+        Console.WriteLine($"PROJECT COUNT: {projects.Count}");
+
+        return projects.Select(p => new ProjectDto
+        {
+            Id = p.Id,
+            Name = p.Name,
+            Description = p.Description,
+            Status = p.Status,
+            StartDate = p.StartDate,
+            DueDate = p.DueDate,
+            CreatedAt = p.CreatedAt,
+            OwnerId = p.OwnerId
+        });
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine("=== GET PROJECTS ERROR ===");
+        Console.WriteLine(ex.ToString());
+        throw;
+    }
 }
 
     public async Task<ProjectDto?> GetByIdAsync(int id)
