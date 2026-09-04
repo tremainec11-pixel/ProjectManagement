@@ -1,209 +1,576 @@
 <div class="dashboard">
 
-  <!-- Dashboard Header -->
+  <!-- =========================================================
+       DASHBOARD HEADER
+  ========================================================== -->
 
   <div class="dashboard-header">
 
+    <div>
+      <h1>Dashboard</h1>
 
-<div>
-  <h1>Dashboard</h1>
-  <p>
-    Welcome back, Tremaine. Here's what's happening with your projects.
-  </p>
-</div>
+      <p>
+        Welcome back, Tremaine. Here's what's happening with your projects.
+      </p>
+    </div>
 
-<button
-  class="primary-button"
-  type="button"
-  (click)="createProject()">
+    <button
+      class="primary-button"
+      type="button"
+      (click)="createProject()">
 
-  <span>+</span>
-  New Project
+      <span>+</span>
+      New Project
 
-</button>
-
+    </button>
 
   </div>
 
-  <!-- Error Message -->
+
+  <!-- =========================================================
+       ERROR MESSAGE
+  ========================================================== -->
 
   <div
     *ngIf="errorMessage"
     class="error-message">
 
+    <span>
+      {{ errorMessage }}
+    </span>
 
-{{ errorMessage }}
+    <button
+      type="button"
+      (click)="loadDashboard()">
 
-<button
-  type="button"
-  (click)="loadDashboard()">
+      Try Again
 
-  Try Again
-
-</button>
-
+    </button>
 
   </div>
 
-  <!-- Loading State -->
+
+  <!-- =========================================================
+       LOADING STATE
+  ========================================================== -->
 
   <div
     *ngIf="isLoading"
     class="loading-state">
 
-<p>Loading dashboard...</p>
-
-
-  </div>
-
-  <!-- Dashboard Content -->
-
-<ng-container *ngIf="!isLoading">
-
-
-<!-- Statistics -->
-<div class="stats-grid">
-
-  <app-stat-card
-    title="Total Projects"
-    [value]="totalProjects"
-    subtitle="Projects across your workspace"
-    icon="folder"
-    trend="+12%"
-    [trendPositive]="true">
-  </app-stat-card>
-
-
-  <app-stat-card
-    title="Active Projects"
-    [value]="activeProjects"
-    subtitle="Projects currently in progress"
-    icon="work"
-    trend="+8%"
-    [trendPositive]="true">
-  </app-stat-card>
-
-
-  <app-stat-card
-  title="Team Members"
-  [value]="totalUsers"
-  subtitle="Members working on projects"
-  icon="group"
-  trend="+1"
-  [trendPositive]="true">
-</app-stat-card>
-
-
-  <app-stat-card
-    title="Completed Projects"
-    [value]="completedProjects"
-    subtitle="Projects completed"
-    icon="task_alt"
-    trend="+15%"
-    [trendPositive]="true">
-  </app-stat-card>
-
-</div>
-
-
-<!-- Recent Projects -->
-<section class="dashboard-section">
-
-  <div class="section-header">
-
-    <div>
-      <h2>Recent Projects</h2>
-      <p>Your latest projects</p>
-    </div>
-
-    <button
-      type="button"
-      class="secondary-button"
-      (click)="router.navigate(['/projects'])">
-
-      View All
-
-    </button>
-
-  </div>
-
-
-  <!-- Empty State -->
-  <div
-    *ngIf="recentProjects.length === 0"
-    class="empty-state">
-
-    <div class="empty-icon">
-      folder
-    </div>
-
-    <h3>No projects yet</h3>
-
     <p>
-      Create your first project to get started.
+      Loading dashboard...
     </p>
 
-    <button
-      type="button"
-      class="primary-button"
-      (click)="createProject()">
-
-      Create Project
-
-    </button>
-
   </div>
 
 
-  <!-- Projects List -->
+  <!-- =========================================================
+       DASHBOARD CONTENT
+  ========================================================== -->
+
+  <ng-container *ngIf="!isLoading">
+
+
+    <!-- =======================================================
+         STATISTICS CARDS
+    ======================================================== -->
+
+    <div class="stats-grid">
+
+      <!-- Total Projects -->
+
+      <app-stat-card
+        title="Total Projects"
+        [value]="totalProjects"
+        subtitle="Projects across your workspace"
+        icon="folder"
+        trend="+12%"
+        [trendPositive]="true">
+      </app-stat-card>
+
+
+      <!-- Active Projects -->
+
+      <app-stat-card
+        title="Active Projects"
+        [value]="activeProjects"
+        subtitle="Projects currently in progress"
+        icon="work"
+        trend="+8%"
+        [trendPositive]="true">
+      </app-stat-card>
+
+
+      <!-- Team Members -->
+
+      <app-stat-card
+        title="Team Members"
+        [value]="totalUsers"
+        subtitle="Members working on projects"
+        icon="group"
+        trend="+1"
+        [trendPositive]="true">
+      </app-stat-card>
+
+
+      <!-- Completed Projects -->
+
+      <app-stat-card
+        title="Completed Projects"
+        [value]="completedProjects"
+        subtitle="Projects completed"
+        icon="task_alt"
+        trend="+15%"
+        [trendPositive]="true">
+      </app-stat-card>
+
+    </div>
+
+
+    <!-- =======================================================
+         PROJECT STATISTICS
+    ======================================================== -->
+
+    <section class="dashboard-section statistics-section">
+
+      <div class="section-header">
+
+        <div>
+          <h2>Project Statistics</h2>
+          <p>Overview of your project status</p>
+        </div>
+
+        <div class="statistics-total">
+          <strong>{{ totalProjects }}</strong>
+          <span>Total Projects</span>
+        </div>
+
+      </div>
+
+      <div class="statistics-content">
+
+        <!-- Donut Chart -->
+        <div class="donut-wrapper">
+
+          <div
+            class="donut-chart"
+            [style.background]="
+              'conic-gradient(' +
+              '#2563eb 0 ' +
+              (totalProjects ? (activeProjects / totalProjects) * 100 : 0) +
+              '%, ' +
+              '#16a34a ' +
+              (totalProjects ? (activeProjects / totalProjects) * 100 : 0) +
+              '% ' +
+              (totalProjects
+                ? ((activeProjects + completedProjects) / totalProjects) * 100
+                : 0) +
+              '%, ' +
+              '#94a3b8 ' +
+              (totalProjects
+                ? ((activeProjects + completedProjects) / totalProjects) * 100
+                : 0) +
+              '% 100%)'
+            "
+          >
+
+            <div class="donut-center">
+              <strong>{{ totalProjects }}</strong>
+              <span>Projects</span>
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Statistics Chart -->
+<div class="statistics-chart">
+
   <div
-    *ngIf="recentProjects.length > 0"
-    class="projects-list">
+    class="chart-row"
+    *ngFor="let statistic of projectStatistics"
+  >
 
-    <div
-      class="project-item"
-      *ngFor="let project of recentProjects">
+    <div class="chart-label">
+      <div class="chart-label-info">
+        <span class="chart-dot"></span>
 
-      <div class="project-info">
+        <span class="chart-name">
+          {{ statistic.label }}
+        </span>
+      </div>
 
-  <div class="project-icon">
-    <mat-icon>folder</mat-icon>
+      <strong>
+        {{ statistic.value }}
+      </strong>
+    </div>
+
+    <div class="chart-track">
+
+      <div
+        class="chart-bar"
+        [style.width.%]="statistic.percentage"
+        [ngClass]="{
+          'active-bar': statistic.label === 'Active',
+          'completed-bar': statistic.label === 'Completed',
+          'other-bar': statistic.label === 'Other'
+        }"
+      ></div>
+
+    </div>
+
+    <span class="chart-percentage">
+      {{ statistic.percentage | number:'1.0-0' }}%
+    </span>
+
   </div>
 
-  <div>
+</div>
+</div>
+    </section>
 
-          <h3>
-            {{ project.name }}
-          </h3>
+    <!-- =======================================================
+         RECENT PROJECTS
+    ======================================================== -->
+
+    <section class="dashboard-section">
+
+      <!-- Header -->
+
+      <div class="section-header">
+
+        <div>
+
+          <h2>
+            Recent Projects
+          </h2>
 
           <p>
-            {{ project.description || 'No description available.' }}
+            Your latest projects
           </p>
+
+        </div>
+
+
+        <button
+          type="button"
+          class="secondary-button"
+          (click)="router.navigate(['/projects'])">
+
+          View All
+
+        </button>
+
+      </div>
+
+
+      <!-- =====================================================
+           EMPTY PROJECT STATE
+      ====================================================== -->
+
+      <div
+        *ngIf="recentProjects.length === 0"
+        class="empty-state">
+
+        <div class="empty-icon">
+
+          <mat-icon>
+            folder
+          </mat-icon>
+
+        </div>
+
+        <h3>
+          No projects yet
+        </h3>
+
+        <p>
+          Create your first project to get started.
+        </p>
+
+        <button
+          type="button"
+          class="primary-button"
+          (click)="createProject()">
+
+          Create Project
+
+        </button>
+
+      </div>
+
+
+      <!-- =====================================================
+           PROJECTS LIST
+      ====================================================== -->
+
+      <div
+        *ngIf="recentProjects.length > 0"
+        class="projects-list">
+
+
+        <div
+          class="project-item"
+          *ngFor="let project of recentProjects">
+
+
+          <!-- Project Info -->
+
+          <div class="project-info">
+
+            <div class="project-icon">
+
+              <mat-icon>
+                folder
+              </mat-icon>
+
+            </div>
+
+
+            <div>
+
+              <h3>
+                {{ project.name }}
+              </h3>
+
+              <p>
+                {{ project.description || 'No description available.' }}
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <!-- Project Actions -->
+
+          <div class="project-actions">
+
+        
+<span
+  class="project-status"
+  [ngClass]="{
+    'status-active': getProjectStatus(project).toLowerCase() === 'active',
+    'status-completed': getProjectStatus(project).toLowerCase() === 'completed',
+    'status-hold': getProjectStatus(project).toLowerCase() === 'on hold',
+    'status-other': !['active', 'completed', 'on hold'].includes(
+      getProjectStatus(project).toLowerCase()
+    )
+  }">
+
+  {{ getProjectStatus(project) }}
+
+</span>
+
+            <button
+              type="button"
+              class="view-button"
+              (click)="viewProject(project)">
+
+              View
+
+            </button>
+
+          </div>
 
         </div>
 
       </div>
 
+    </section>
 
-      <div class="project-actions">
 
-        <span
-          class="project-status">
+    <!-- =======================================================
+         DASHBOARD GRID
+    ======================================================== -->
 
-          {{ getProjectStatus(project) }}
+    <div class="dashboard-grid">
 
-        </span>
 
-        <button
-          type="button"
-          class="view-button"
-          (click)="viewProject(project)">
+      <!-- =====================================================
+           RECENT TASKS
+      ====================================================== -->
 
-          View
+      <section class="dashboard-section">
 
-        </button>
+        <div class="section-header">
 
-      </div>
+          <div>
+
+            <h2>
+              Recent Tasks
+            </h2>
+
+            <p>
+              Your latest tasks
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <!-- Empty Tasks State -->
+
+        <div
+          *ngIf="recentTasks.length === 0"
+          class="empty-state compact">
+
+          <div class="empty-icon">
+
+            <mat-icon>
+              task_alt
+            </mat-icon>
+
+          </div>
+
+          <h3>
+            No tasks yet
+          </h3>
+
+          <p>
+            Tasks assigned to your projects will appear here.
+          </p>
+
+        </div>
+
+
+        <!-- Recent Tasks List -->
+
+        <div
+          *ngIf="recentTasks.length > 0"
+          class="tasks-list">
+
+
+          <div
+            class="task-item"
+            *ngFor="let task of recentTasks">
+
+
+            <!-- Task Info -->
+
+            <div class="task-info">
+
+              <div class="task-icon">
+
+                <mat-icon>
+                  task_alt
+                </mat-icon>
+
+              </div>
+
+
+              <div>
+
+                <h3>
+                  {{ task.title }}
+                </h3>
+
+                <p>
+                  {{ task.description || 'No description available.' }}
+                </p>
+
+              </div>
+
+            </div>
+
+
+            <!-- Task Details -->
+ 
+<div class="task-details">
+
+  <span
+    class="task-status"
+    [ngClass]="{
+      'task-status-completed': task.status.toLowerCase() === 'completed',
+'task-status-progress': task.status.toLowerCase() === 'in progress',
+'task-status-pending': task.status.toLowerCase() === 'pending',
+      'task-status-other': !['completed', 'in progress', 'pending'].includes(
+        task.status.toLowerCase()
+      )
+    }">
+
+    {{ task.status }}
+
+  </span>
+
+
+  <span
+    class="task-priority"
+    [ngClass]="{
+      'priority-high': task.priority.toLowerCase() === 'high',
+'priority-medium': task.priority.toLowerCase() === 'medium',
+'priority-low': task.priority.toLowerCase() === 'low'
+    }">
+
+    {{ task.priority }}
+
+  </span>
+
+
+  <span
+    *ngIf="task.assignedToName"
+    class="task-assignee">
+
+    {{ task.assignedToName }}
+
+  </span>
+
+</div>
+
+</div>
+</div>
+
+      </section>
+
+<!-- =====================================================
+     RECENT ACTIVITY
+====================================================== -->
+
+<section class="dashboard-section recent-activity-section">
+
+  <!-- Header -->
+
+  <div class="section-header">
+
+    <div>
+
+      <h2>
+        Recent Activity
+      </h2>
+
+      <p>
+        Latest workspace activity
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- Activity Empty State -->
+
+  <div class="activity-empty-state">
+
+    <div class="activity-icon">
+
+      <mat-icon>
+        history
+      </mat-icon>
+
+    </div>
+
+
+    <div class="activity-content">
+
+      <h3>
+        Activity coming next
+      </h3>
+
+      <p>
+        Recent project and task activity will appear here.
+      </p>
 
     </div>
 
@@ -211,120 +578,7 @@
 
 </section>
 
-
-<!-- Coming Soon Dashboard Sections -->
-<div class="dashboard-grid">
-
-  <section class="dashboard-section">
-
-    <div class="section-header">
-
-      <div>
-        <h2>Recent Tasks</h2>
-        <p>Your latest tasks</p>
-      </div>
-
     </div>
-
-    <!-- Empty Tasks State -->
-
-<div
-  *ngIf="recentTasks.length === 0"
-  class="empty-state compact">
-
-  <h3>No tasks yet</h3>
-
-  <p>
-    Tasks assigned to your projects will appear here.
-  </p>
-
-</div>
-
-
-<!-- Recent Tasks List -->
-
-<div
-  *ngIf="recentTasks.length > 0"
-  class="tasks-list">
-
-  <div
-    class="task-item"
-    *ngFor="let task of recentTasks">
-
-    <div class="task-info">
-
-  <div class="task-icon">
-    <mat-icon>task_alt</mat-icon>
-  </div>
-
-  <div>
-
-        <h3>
-          {{ task.title }}
-        </h3>
-
-        <p>
-          {{ task.description || 'No description available.' }}
-        </p>
-
-      </div>
-
-    </div>
-
-
-    <div class="task-details">
-
-      <span class="task-status">
-        {{ task.status }}
-      </span>
-
-      <span class="task-priority">
-        {{ task.priority }}
-      </span>
-
-      <span
-        *ngIf="task.assignedToName"
-        class="task-assignee">
-
-        {{ task.assignedToName }}
-
-      </span>
-
-    </div>
-
-  </div>
-
-</div>
-
-  </section>
-
-
-  <section class="dashboard-section">
-
-    <div class="section-header">
-
-      <div>
-        <h2>Recent Activity</h2>
-        <p>Latest workspace activity</p>
-      </div>
-
-    </div>
-
-    <div class="empty-state compact">
-
-      <h3>Activity coming next</h3>
-
-      <p>
-        Recent project and task activity
-        will appear here.
-      </p>
-
-    </div>
-
-  </section>
-
-</div>
-
 
   </ng-container>
 

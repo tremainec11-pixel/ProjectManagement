@@ -61,6 +61,33 @@ export class DashboardComponent implements OnInit {
   totalProjects = 0;
   activeProjects = 0;
   completedProjects = 0;
+  pendingProjects = 0;
+
+get projectStatistics() {
+  return [
+    {
+      label: 'Active',
+      value: this.activeProjects,
+      percentage: this.totalProjects
+        ? (this.activeProjects / this.totalProjects) * 100
+        : 0
+    },
+    {
+      label: 'Completed',
+      value: this.completedProjects,
+      percentage: this.totalProjects
+        ? (this.completedProjects / this.totalProjects) * 100
+        : 0
+    },
+    {
+      label: 'Other',
+      value: this.pendingProjects,
+      percentage: this.totalProjects
+        ? (this.pendingProjects / this.totalProjects) * 100
+        : 0
+    }
+  ];
+}
 
   // ================================
   // Task Statistics
@@ -254,20 +281,25 @@ export class DashboardComponent implements OnInit {
 
   private calculateProjectStats(): void {
 
-    this.totalProjects =
-      this.projects.length;
+  this.totalProjects =
+    this.projects.length;
 
-    this.activeProjects =
-      this.projects.filter(project =>
-        project.status?.toLowerCase() === 'active'
-      ).length;
+  this.activeProjects =
+    this.projects.filter(project =>
+      project.status?.toLowerCase() === 'active'
+    ).length;
 
-    this.completedProjects =
-      this.projects.filter(project =>
-        project.status?.toLowerCase() === 'completed'
-      ).length;
+  this.completedProjects =
+    this.projects.filter(project =>
+      project.status?.toLowerCase() === 'completed'
+    ).length;
 
-  }
+  this.pendingProjects =
+    this.totalProjects -
+    this.activeProjects -
+    this.completedProjects;
+
+}
 
   // ================================
   // Task Statistics

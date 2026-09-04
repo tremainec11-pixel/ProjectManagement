@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using ProjectManagement.Application.DTOs.Tasks;
-using ProjectManagement.Application.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using ProjectManagement.API.Data;
+using ProjectManagement.API.Models;
 
 namespace ProjectManagement.API.Controllers;
 
@@ -8,95 +9,70 @@ namespace ProjectManagement.API.Controllers;
 [Route("api/[controller]")]
 public class TasksController : ControllerBase
 {
-    private readonly ITaskService _taskService;
+    private readonly ApplicationDbContext _context;
 
-    public TasksController(ITaskService taskService)
+    public TasksController(ApplicationDbContext context)
     {
-        _taskService = taskService;
+        _context = context;
     }
-
-
-    // =========================
-    // GET: api/Tasks
-    // =========================
 
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<TaskDto>>> GetAll()
+    public async Task<ActionResult<IEnumerable<ProjectManagement.API.Models.Task>>> GetTasks()
     {
-        var tasks = await _taskService.GetAllAsync();
-
-        return Ok(tasks);
+        return await _context.Tasks.ToListAsync();
     }
 
-
-    // =========================
-    // GET: api/Tasks/{id}
-    // =========================
-
-    [HttpGet("{id:int}")]
-    public async Task<ActionResult<TaskDto>> GetById(int id)
+    [HttpGet("{id}")]
+    public async Task<ActionResult<ProjectManagement.API.Models.Task>> GetTask(int id)
     {
-        var task = await _taskService.GetByIdAsync(id);
+        var task = await _context.Tasks.FindAsync(id);
 
-        if (task is null)
-        {
+        if (task == null)
             return NotFound();
-        }
 
-        return Ok(task);
+        return task;
     }
-
-
-    // =========================
-    // POST: api/Tasks
-    // =========================
 
     [HttpPost]
-    public async Task<ActionResult<TaskDto>> Create(
-        [FromBody] CreateTaskDto dto)
+    public async Task<ActionResult<ProjectManagement.API.Models.Task>> CreateTask(
+        ProjectManagement.API.Models.Task task)
     {
-        var task = await _taskService.CreateAsync(dto);
+        task.CreatedAt = DateTime.UtcNow;
+
+        _context.Tasks.Add(task);
+        await _context.SaveChangesAsync();
 
         return CreatedAtAction(
-            nameof(GetById),
+            nameof(GetTask),
             new { id = task.Id },
             task);
     }
 
-
-    // =========================
-    // PUT: api/Tasks/{id}
-    // =========================
-
-    [HttpPut("{id:int}")]
-    public async Task<IActionResult> Update(
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateTask(
         int id,
-        [FromBody] UpdateTaskDto dto)
+        ProjectManagement.API.Models.Task task)
     {
-        var updated = await _taskService.UpdateAsync(id, dto);
+        if (id != task.Id)
+            return BadRequest();
 
-        if (!updated)
-        {
-            return NotFound();
-        }
+        _context.Entry(task).State = EntityState.Modified;
+
+        await _context.SaveChangesAsync();
 
         return NoContent();
     }
 
-
-    // =========================
-    // DELETE: api/Tasks/{id}
-    // =========================
-
-    [HttpDelete("{id:int}")]
-    public async Task<IActionResult> Delete(int id)
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteTask(int id)
     {
-        var deleted = await _taskService.DeleteAsync(id);
+        var task = await _context.Tasks.FindAsync(id);
 
-        if (!deleted)
-        {
+        if (task == null)
             return NotFound();
-        }
+
+        _context.Tasks.Remove(task);
+        await _context.SaveChangesAsync();
 
         return NoContent();
     }

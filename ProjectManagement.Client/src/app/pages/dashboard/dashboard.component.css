@@ -21,7 +21,7 @@
 .dashboard-header h1 {
   margin: 0;
   color: #010207;
-  font-size: 34px;
+  font-size: 32px;
   font-weight: 750;
   line-height: 1.2;
   letter-spacing: -0.6px;
@@ -30,7 +30,7 @@
 .dashboard-header p {
   margin: 9px 0 0;
   color: #010711;
-  font-size: 16px;
+  font-size: 15px;
   line-height: 1.6;
   font-weight: 500;
 }
@@ -40,42 +40,60 @@
 ======================================== */
 
 .primary-button {
-  min-height: 46px;
-  padding: 0 21px;
-  border: 1px solid transparent;
-  border-radius: 10px;
-  background: #2563eb;
-  color: #ffffff;
-  font-size: 15px;
-  font-weight: 650;
-  cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 9px;
-  white-space: nowrap;
-  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.18);
+  gap: 8px;
+
+  min-height: 42px;
+  padding: 0 18px;
+
+  border: 1px solid #2563eb;
+  border-radius: 8px;
+
+  background: #2563eb;
+  color: #ffffff;
+
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1;
+
+  cursor: pointer;
+
+  box-shadow: 0 2px 4px rgba(30, 77, 187, 0.18);
+
   transition:
     background 0.2s ease,
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
 }
 
 .primary-button:hover {
   background: #1d4ed8;
+  border-color: #1d4ed8;
+  box-shadow: 0 5px 12px rgba(37, 99, 235, 0.22);
   transform: translateY(-1px);
-  box-shadow: 0 7px 18px rgba(37, 99, 235, 0.24);
 }
 
 .primary-button:active {
   transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(83, 107, 160, 0.18);
 }
 
 .primary-button span {
-  font-size: 21px;
+  font-size: 20px;
   font-weight: 400;
   line-height: 1;
+  color: #ffffff;
 }
+
+.primary-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
 
 /* ========================================
    ERROR MESSAGE
@@ -163,7 +181,7 @@
 .section-header h2 {
   margin: 0;
   color: #01040c;
-  font-size: 21px;
+  font-size: 20px;
   font-weight: 700;
   letter-spacing: -0.2px;
 }
@@ -822,3 +840,1021 @@
   border-color: #3b82f6;
   color: #ffffff;
 }
+/* ========================================
+   PROJECT STATISTICS
+======================================== */
+
+.statistics-section {
+  margin-bottom: 28px;
+}
+
+.statistics-total {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 3px;
+}
+
+.statistics-total strong {
+  color: #0f172a;
+  font-size: 30px;
+  font-weight: 750;
+  line-height: 1;
+}
+
+.statistics-total span {
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+/* ========================================
+   STATISTICS CONTENT
+======================================== */
+
+.statistics-content {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 55px;
+  align-items: center;
+}
+
+
+/* ========================================
+   DONUT
+======================================== */
+
+.donut-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.donut-chart {
+  position: relative;
+
+  width: 210px;
+  height: 210px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  transition: transform 0.3s ease;
+}
+
+.donut-chart:hover {
+  transform: scale(1.03);
+}
+
+.donut-chart::before {
+  content: '';
+
+  position: absolute;
+
+  width: 142px;
+  height: 142px;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+}
+
+.donut-center {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+}
+
+.donut-center strong {
+  color: #0f172a;
+
+  font-size: 38px;
+  font-weight: 750;
+
+  line-height: 1;
+  letter-spacing: -1px;
+}
+
+.donut-center span {
+  margin-top: 6px;
+
+  color: #64748b;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+/* ========================================
+   SUMMARY
+======================================== */
+
+.statistics-summary {
+  display: flex;
+  flex-direction: column;
+
+  gap: 22px;
+
+  padding-left: 30px;
+
+  border-left: 1px solid #e2e8f0;
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+}
+
+.summary-dot {
+  width: 12px;
+  height: 12px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+}
+
+.summary-dot.active {
+  background: #2563eb;
+}
+
+.summary-dot.completed {
+  background: #16a34a;
+}
+
+.summary-dot.other {
+  background: #94a3b8;
+}
+
+.summary-item div {
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+}
+
+.summary-item strong {
+  color: #0f172a;
+
+  font-size: 21px;
+  font-weight: 750;
+
+  line-height: 1;
+}
+
+.summary-item span:not(.summary-dot) {
+  color: #64748b;
+
+  font-size: 14px;
+  font-weight: 500;
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 900px) {
+
+  .statistics-content {
+    grid-template-columns: 1fr;
+
+    gap: 35px;
+  }
+
+  .statistics-summary {
+    padding-left: 0;
+    padding-top: 25px;
+
+    border-left: none;
+    border-top: 1px solid #e2e8f0;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .statistics-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .statistics-total {
+    align-items: flex-start;
+  }
+
+  .donut-chart {
+    width: 180px;
+    height: 180px;
+  }
+
+  .donut-chart::before {
+    width: 122px;
+    height: 122px;
+  }
+
+  .donut-center strong {
+    font-size: 32px;
+  }
+
+}
+
+
+/* ========================================
+   DARK MODE
+======================================== */
+
+:host-context(body.dark-theme) .statistics-total strong {
+  color: #f8fafc;
+}
+
+:host-context(body.dark-theme) .statistics-total span {
+  color: #94a3b8;
+}
+
+:host-context(body.dark-theme) .donut-chart::before {
+  background: #111827;
+}
+
+:host-context(body.dark-theme) .donut-center strong {
+  color: #f8fafc;
+}
+
+:host-context(body.dark-theme) .donut-center span {
+  color: #94a3b8;
+}
+
+:host-context(body.dark-theme) .statistics-summary {
+  border-color: #374151;
+}
+
+:host-context(body.dark-theme) .summary-item strong {
+  color: #f8fafc;
+}
+
+:host-context(body.dark-theme) .summary-item span:not(.summary-dot) {
+  color: #94a3b8;
+}
+.dashboard .primary-button {
+  background-color: #2563eb !important;
+  border-color: #2563eb !important;
+  color: #ffffff !important;
+}
+
+.dashboard .primary-button:hover {
+  background-color: #1d4ed8 !important;
+  border-color: #1d4ed8 !important;
+  color: #ffffff !important;
+}
+
+.dashboard .primary-button span {
+  color: #ffffff !important;
+}
+.dashboard .primary-button span {
+  color: #ffffff !important;
+}
+/* ========================================
+   PRIMARY BUTTON - DARK THEME
+======================================== */
+
+:host-context(body.dark-theme) .dashboard .primary-button {
+  background-color: #2563eb !important;
+  border-color: #2563eb !important;
+  color: #ffffff !important;
+}
+
+:host-context(body.dark-theme) .dashboard .primary-button:hover {
+  background-color: #1d4ed8 !important;
+  border-color: #1d4ed8 !important;
+  color: #ffffff !important;
+}
+
+:host-context(body.dark-theme) .dashboard .primary-button span {
+  color: #ffffff !important;
+}
+/* ========================================
+   PROJECT STATISTICS - CHART
+======================================== */
+
+.statistics-chart {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 22px;
+  padding: 10px 0;
+}
+
+.chart-row {
+  display: grid;
+  grid-template-columns: 150px 1fr 55px;
+  align-items: center;
+  gap: 16px;
+}
+
+.chart-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.chart-label-info {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.chart-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #2563eb;
+  flex-shrink: 0;
+}
+
+.chart-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.chart-label strong {
+  font-size: 15px;
+  font-weight: 700;
+  color: #111827;
+}
+
+.chart-track {
+  width: 100%;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e5e7eb;
+}
+
+.chart-bar {
+  height: 100%;
+  min-width: 4px;
+  border-radius: 999px;
+  transition: width 0.5s ease;
+}
+
+.active-bar {
+  background: #2563eb;
+}
+
+.completed-bar {
+  background: #16a34a;
+}
+
+.other-bar {
+  background: #94a3b8;
+}
+
+.chart-percentage {
+  font-size: 14px;
+  font-weight: 700;
+  text-align: right;
+  color: #374151;
+}
+
+/* Responsive */
+
+@media (max-width: 700px) {
+  .chart-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .chart-percentage {
+    text-align: left;
+  }
+}
+/* ========================================
+   PROJECT STATISTICS - DARK MODE
+======================================== */
+
+.statistics-section {
+  color: #f8fafc;
+}
+
+.statistics-section .section-header h2 {
+  color: #f8fafc;
+}
+
+.statistics-section .section-header p {
+  color: #cbd5e1;
+}
+
+.statistics-total strong {
+  color: #f8fafc;
+}
+
+.statistics-total span {
+  color: #cbd5e1;
+}
+
+.statistics-section .chart-name {
+  color: #e2e8f0;
+}
+
+.statistics-section .chart-label strong {
+  color: #f8fafc;
+}
+
+.statistics-section .chart-percentage {
+  color: #e2e8f0;
+}
+
+.statistics-section .chart-track {
+  background: #334155;
+}
+
+.statistics-section .donut-center strong {
+  color: #f8fafc;
+}
+
+.statistics-section .donut-center span {
+  color: #cbd5e1;
+}
+
+/* ========================================
+   RECENT PROJECTS - STATUS BADGES
+======================================== */
+
+.project-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 31px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 650;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+/* Active */
+
+.status-active {
+  background: #064e3b;
+  border-color: #047857;
+  color: #6ee7b7;
+}
+
+/* Completed */
+
+.status-completed {
+  background: #1e3a8a;
+  border-color: #2563eb;
+  color: #93c5fd;
+}
+
+/* On Hold */
+
+.status-hold {
+  background: #7c2d12;
+  border-color: #c2410c;
+  color: #fdba74;
+}
+
+/* Other / Unknown */
+
+.status-other {
+  background: #374151;
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+/* ========================================
+   LIGHT MODE - DASHBOARD TEXT
+======================================== */
+
+:host-context(body.light-theme) .stat-card {
+  color: #111827;
+}
+
+:host-context(body.light-theme) .stat-card span {
+  color: #475569;
+}
+
+:host-context(body.light-theme) .stat-card strong {
+  color: #111827;
+}
+
+/* Trend percentages */
+
+:host-context(body.light-theme) .stat-card .trend {
+  color: #15803d;
+}
+
+/* Project Statistics */
+
+:host-context(body.light-theme) .statistics-section .section-header h2 {
+  color: #111827;
+}
+
+:host-context(body.light-theme) .statistics-section .section-header p {
+  color: #475569;
+}
+
+:host-context(body.light-theme) .statistics-total strong {
+  color: #111827;
+}
+
+:host-context(body.light-theme) .statistics-total span {
+  color: #475569;
+}
+
+:host-context(body.light-theme) .statistics-section .chart-name {
+  color: #374151;
+}
+
+:host-context(body.light-theme) .statistics-section .chart-label strong {
+  color: #111827;
+}
+
+:host-context(body.light-theme) .statistics-section .chart-percentage {
+  color: #374151;
+}
+
+:host-context(body.light-theme) .statistics-section .donut-center strong {
+  color: #111827;
+}
+
+:host-context(body.light-theme) .statistics-section .donut-center span {
+  color: #475569;
+}
+
+/* ========================================
+   RECENT TASKS - IMPROVED STYLING
+======================================== */
+
+/* Task status badges */
+
+.task-status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 31px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 650;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+/* Completed */
+
+.task-status-completed {
+  background: #064e3b;
+  border-color: #047857;
+  color: #6ee7b7;
+}
+
+/* In Progress */
+
+.task-status-progress {
+  background: #1e3a8a;
+  border-color: #2563eb;
+  color: #93c5fd;
+}
+
+/* Pending */
+
+.task-status-pending {
+  background: #78350f;
+  border-color: #b45309;
+  color: #fcd34d;
+}
+
+/* Other */
+
+.task-status-other {
+  background: #374151;
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+
+
+/* ========================================
+   TASK PRIORITY BADGES
+======================================== */
+
+.task-priority {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 31px;
+  padding: 0 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 650;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+/* High */
+
+.priority-high {
+  background: #7f1d1d;
+  border-color: #b91c1c;
+  color: #fca5a5;
+}
+
+/* Medium */
+
+.priority-medium {
+  background: #78350f;
+  border-color: #b45309;
+  color: #fcd34d;
+}
+
+/* Low */
+
+.priority-low {
+  background: #064e3b;
+  border-color: #047857;
+  color: #6ee7b7;
+}
+
+
+/* ========================================
+   TASK ASSIGNEE
+======================================== */
+
+.task-assignee {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 31px;
+  padding: 0 12px;
+  border-radius: 999px;
+  background: #374151;
+  border: 1px solid #4b5563;
+  color: #e5e7eb;
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+
+/* ========================================
+   TASK DETAILS
+======================================== */
+
+.task-details {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+
+/* ========================================
+   DARK MODE - TASK DETAILS
+======================================== */
+
+:host-context(body.dark-theme) .task-status-completed {
+  background: #064e3b;
+  border-color: #047857;
+  color: #6ee7b7;
+}
+
+:host-context(body.dark-theme) .task-status-progress {
+  background: #1e3a8a;
+  border-color: #2563eb;
+  color: #93c5fd;
+}
+
+:host-context(body.dark-theme) .task-status-pending {
+  background: #78350f;
+  border-color: #b45309;
+  color: #fcd34d;
+}
+
+:host-context(body.dark-theme) .task-status-other {
+  background: #374151;
+  border-color: #4b5563;
+  color: #d1d5db;
+}
+
+
+/* ========================================
+   LIGHT MODE - TASK DETAILS
+======================================== */
+
+:host-context(body.light-theme) .task-status-completed {
+  background: #dcfce7;
+  border-color: #86efac;
+  color: #166534;
+}
+
+:host-context(body.light-theme) .task-status-progress {
+  background: #dbeafe;
+  border-color: #93c5fd;
+  color: #1d4ed8;
+}
+
+:host-context(body.light-theme) .task-status-pending {
+  background: #fef3c7;
+  border-color: #fcd34d;
+  color: #92400e;
+}
+
+:host-context(body.light-theme) .task-status-other {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #475569;
+}
+
+:host-context(body.light-theme) .priority-high {
+  background: #fee2e2;
+  border-color: #fca5a5;
+  color: #b91c1c;
+}
+
+:host-context(body.light-theme) .priority-medium {
+  background: #fef3c7;
+  border-color: #fcd34d;
+  color: #92400e;
+}
+
+:host-context(body.light-theme) .priority-low {
+  background: #dcfce7;
+  border-color: #86efac;
+  color: #166534;
+}
+
+:host-context(body.light-theme) .task-assignee {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #475569;
+}
+
+/* ========================================
+   RECENT ACTIVITY - IMPROVED STYLING
+======================================== */
+
+/* Activity empty state */
+
+.dashboard-grid .dashboard-section:last-child .empty-state {
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+
+/* Activity icon */
+
+.dashboard-grid .dashboard-section:last-child .empty-icon {
+  width: 54px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 14px;
+  border-radius: 14px;
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.dashboard-grid .dashboard-section:last-child .empty-icon mat-icon {
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+
+/* Activity title */
+
+.dashboard-grid .dashboard-section:last-child .empty-state h3 {
+  margin: 0 0 7px;
+  font-size: 17px;
+  font-weight: 700;
+  color: #111827;
+}
+
+
+/* Activity description */
+
+.dashboard-grid .dashboard-section:last-child .empty-state p {
+  max-width: 330px;
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.6;
+  color: #64748b;
+}
+
+
+/* ========================================
+   DARK MODE - RECENT ACTIVITY
+======================================== */
+
+:host-context(body.dark-theme)
+.dashboard-grid .dashboard-section:last-child
+.empty-icon {
+  background: #1e3a8a;
+  color: #93c5fd;
+}
+
+:host-context(body.dark-theme)
+.dashboard-grid .dashboard-section:last-child
+.empty-state h3 {
+  color: #f9fafb;
+}
+
+:host-context(body.dark-theme)
+.dashboard-grid .dashboard-section:last-child
+.empty-state p {
+  color: #cbd5e1;
+}
+
+
+/* ========================================
+   LIGHT MODE - RECENT ACTIVITY
+======================================== */
+
+:host-context(body.light-theme)
+.dashboard-grid .dashboard-section:last-child
+.empty-icon {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+:host-context(body.light-theme)
+.dashboard-grid .dashboard-section:last-child
+.empty-state h3 {
+  color: #111827;
+}
+
+:host-context(body.light-theme)
+.dashboard-grid .dashboard-section:last-child
+.empty-state p {
+  color: #64748b;
+}
+
+/* ========================================
+   RECENT ACTIVITY
+======================================== */
+
+.recent-activity-section {
+  overflow: hidden;
+}
+
+
+/* Activity empty area */
+
+.activity-empty-state {
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 24px;
+  text-align: center;
+}
+
+
+/* Activity icon */
+
+.activity-icon {
+  width: 58px;
+  height: 58px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 16px;
+
+  border-radius: 16px;
+
+  background: #eff6ff;
+  color: #2563eb;
+
+  border: 1px solid #dbeafe;
+}
+
+.activity-icon mat-icon {
+  width: 30px;
+  height: 30px;
+
+  font-size: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/* Activity content */
+
+.activity-content h3 {
+  margin: 0 0 8px;
+
+  font-size: 17px;
+  font-weight: 700;
+
+  color: #111827;
+}
+
+.activity-content p {
+  max-width: 340px;
+
+  margin: 0;
+
+  font-size: 14px;
+  line-height: 1.6;
+
+  color: #64748b;
+}
+
+
+/* ========================================
+   DARK MODE
+======================================== */
+
+:host-context(body.dark-theme) .activity-icon {
+  background: #1e3a8a;
+  border-color: #2563eb;
+  color: #93c5fd;
+}
+
+:host-context(body.dark-theme) .activity-content h3 {
+  color: #f9fafb;
+}
+
+:host-context(body.dark-theme) .activity-content p {
+  color: #cbd5e1;
+}
+
+
+/* ========================================
+   LIGHT MODE
+======================================== */
+
+:host-context(body.light-theme) .activity-icon {
+  background: #eff6ff;
+  border-color: #dbeafe;
+  color: #2563eb;
+}
+
+:host-context(body.light-theme) .activity-content h3 {
+  color: #111827;
+}
+
+:host-context(body.light-theme) .activity-content p {
+  color: #64748b;
+}
+
+
+/* ========================================
+   RESPONSIVE
+======================================== */
+
+@media (max-width: 700px) {
+
+  .activity-empty-state {
+    min-height: 220px;
+    padding: 25px 18px;
+  }
+
+  .activity-icon {
+    width: 52px;
+    height: 52px;
+  }
+
+  .activity-icon mat-icon {
+    width: 27px;
+    height: 27px;
+    font-size: 27px;
+  }
+
+  .activity-content h3 {
+    font-size: 16px;
+  }
+
+}
+

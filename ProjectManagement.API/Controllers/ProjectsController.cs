@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using ProjectManagement.Application.DTOs.Projects;
-using ProjectManagement.Application.Services;
+using Microsoft.EntityFrameworkCore;
+using ProjectManagement.API.Data;
+using ProjectManagement.API.Models;
 
 namespace ProjectManagement.API.Controllers;
 
@@ -8,74 +9,119 @@ namespace ProjectManagement.API.Controllers;
 [Route("api/[controller]")]
 public class ProjectsController : ControllerBase
 {
-private readonly IProjectService _projectService;
+    private readonly ApplicationDbContext _context;
 
-
-public ProjectsController(IProjectService projectService)
-{
-    _projectService = projectService;
-}
-
-[HttpGet]
-public async Task<ActionResult<IEnumerable<ProjectDto>>> GetAll()
-{
-    var projects = await _projectService.GetAllAsync();
-
-    return Ok(projects);
-}
-
-[HttpGet("{id:int}")]
-public async Task<ActionResult<ProjectDto>> GetById(int id)
-{
-    var project = await _projectService.GetByIdAsync(id);
-
-    if (project is null)
+    public ProjectsController(ApplicationDbContext context)
     {
-        return NotFound();
+        _context = context;
     }
 
-    return Ok(project);
-}
-
-[HttpPost]
-public async Task<ActionResult<ProjectDto>> Create(
-    [FromBody] CreateProjectDto dto)
-{
-    var project = await _projectService.CreateAsync(dto);
-
-    return CreatedAtAction(
-        nameof(GetById),
-        new { id = project.Id },
-        project);
-}
-
-[HttpPut("{id:int}")]
-public async Task<IActionResult> Update(
-    int id,
-    [FromBody] CreateProjectDto dto)
-{
-    var updated = await _projectService.UpdateAsync(id, dto);
-
-    if (!updated)
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Project>>> GetProjects()
     {
-        return NotFound();
+        var projects = await (
+            from p in _context.Projects
+            join u in _context.Users
+                on p.OwnerId equals u.Id into users
+            from u in users.DefaultIfEmpty()
+            select new Project
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Description = p.Description,
+                Status = p.Status,
+                StartDate = p.StartDate,
+                DueDate = p.DueDate,
+                CreatedAt = p.CreatedAt,
+                OwnerId = p.OwnerId,
+                OwnerName = u != null
+                    ? u.FirstName + " " + u.LastName
+                    : "",
+                MemberCount = _context.ProjectMembers
+                    .Count(pm => pm.ProjectId == p.Id)
+            }
+        ).ToListAsync();
+
+        return projects;
     }
 
-    return NoContent();
-}
-
-[HttpDelete("{id:int}")]
-public async Task<IActionResult> Delete(int id)
-{
-    var deleted = await _projectService.DeleteAsync(id);
-
-    if (!deleted)
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Project>> GetProject(int id)
     {
-        return NotFound();
+        var project = await (
+            from p in _context.Projects
+            join u in _context.Users
+                on p.OwnerId equals u.Id into users
+            from u in users.DefaultIfEmpty()
+            where p.Id == id
+            select new Project
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Description = p.Description,
+                Status = p.Status,
+                StartDate = p.StartDate,
+                DueDate = p.DueDate,
+                CreatedAt = p.CreatedAt,
+                OwnerId = p.OwnerId,
+                OwnerName = u != null
+                    ? u.FirstName + " " + u.LastName
+                    : "",
+                MemberCount = _context.ProjectMembers
+                    .Count(pm => pm.ProjectId == p.Id)
+            }
+        ).FirstOrDefaultAsync();
+
+        if (project == null)
+        {
+            return NotFound();
+        }
+
+        return project;
     }
 
-    return NoContent();
-}
+    [HttpPost]
+    public async Task<ActionResult<Project>> CreateProject(Project project)
+    {
+        project.CreatedAt = DateTime.UtcNow;
 
+        _context.Projects.Add(project);
+        await _context.SaveChangesAsync();
 
+        return CreatedAtAction(
+            nameof(GetProject),
+            new { id = project.Id },
+            project);
+    }
+
+    [HttpPut("{id}")]
+    public async Task<IActionResult> UpdateProject(int id, Project project)
+    {
+        if (id != project.Id)
+        {
+            return BadRequest();
+        }
+
+        _context.Entry(project).State = EntityState.Modified;
+
+        await _context.SaveChangesAsync();
+
+        return NoContent();
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteProject(int id)
+    {
+        var project = await _context.Projects.FindAsync(id);
+
+        if (project == null)
+        {
+            return NotFound();
+        }
+
+        _context.Projects.Remove(project);
+        await _context.SaveChangesAsync();
+
+        return NoContent();
+    }
 }

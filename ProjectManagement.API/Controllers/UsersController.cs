@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using ProjectManagement.Application.DTOs.Users;
-using ProjectManagement.Application.Services;
+using Microsoft.EntityFrameworkCore;
+using ProjectManagement.API.Data;
+using ProjectManagement.API.Models;
 
 namespace ProjectManagement.API.Controllers;
 
@@ -8,79 +9,42 @@ namespace ProjectManagement.API.Controllers;
 [Route("api/[controller]")]
 public class UsersController : ControllerBase
 {
-    private readonly IUserService _userService;
+    private readonly ApplicationDbContext _context;
 
-    public UsersController(IUserService userService)
+    public UsersController(ApplicationDbContext context)
     {
-        _userService = userService;
+        _context = context;
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll()
+    public async Task<ActionResult<IEnumerable<User>>> GetUsers()
     {
-        var users = await _userService.GetAllAsync();
-
-        return Ok(users);
+        return await _context.Users.ToListAsync();
     }
 
-    [HttpGet("{id:int}")]
-    public async Task<IActionResult> GetById(int id)
+    [HttpGet("{id}")]
+    public async Task<ActionResult<User>> GetUser(int id)
     {
-        var user = await _userService.GetByIdAsync(id);
+        var user = await _context.Users.FindAsync(id);
 
-        if (user is null)
+        if (user == null)
         {
-            return NotFound(new
-            {
-                message = "User not found."
-            });
+            return NotFound();
         }
 
-        return Ok(user);
+        return user;
     }
 
     [HttpPost]
-    public async Task<IActionResult> Create(CreateUserDto dto)
+    public async Task<ActionResult<User>> CreateUser(User user)
     {
-        var user = await _userService.CreateAsync(dto);
+        _context.Users.Add(user);
+
+        await _context.SaveChangesAsync();
 
         return CreatedAtAction(
-            nameof(GetById),
+            nameof(GetUser),
             new { id = user.Id },
             user);
-    }
-
-    [HttpPut("{id:int}")]
-    public async Task<IActionResult> Update(
-        int id,
-        CreateUserDto dto)
-    {
-        var updated = await _userService.UpdateAsync(id, dto);
-
-        if (!updated)
-        {
-            return NotFound(new
-            {
-                message = "User not found."
-            });
-        }
-
-        return NoContent();
-    }
-
-    [HttpDelete("{id:int}")]
-    public async Task<IActionResult> Delete(int id)
-    {
-        var deleted = await _userService.DeleteAsync(id);
-
-        if (!deleted)
-        {
-            return NotFound(new
-            {
-                message = "User not found."
-            });
-        }
-
-        return NoContent();
     }
 }

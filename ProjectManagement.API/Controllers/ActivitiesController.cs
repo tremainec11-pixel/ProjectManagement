@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using ProjectManagement.Application.DTOs.Activities;
-using ProjectManagement.Application.Interfaces;
+using Microsoft.EntityFrameworkCore;
+using ProjectManagement.API.Data;
+using ProjectManagement.API.Models;
 
 namespace ProjectManagement.API.Controllers;
 
@@ -8,64 +9,57 @@ namespace ProjectManagement.API.Controllers;
 [Route("api/[controller]")]
 public class ActivitiesController : ControllerBase
 {
-private readonly IActivityService _activityService;
+    private readonly ApplicationDbContext _context;
 
-
-public ActivitiesController(IActivityService activityService)
-{
-    _activityService = activityService;
-}
-
-[HttpGet]
-public async Task<IActionResult> GetAll()
-{
-    var activities = await _activityService.GetAllAsync();
-
-    return Ok(activities);
-}
-
-[HttpGet("{id:int}")]
-public async Task<IActionResult> GetById(int id)
-{
-    var activity = await _activityService.GetByIdAsync(id);
-
-    if (activity is null)
+    public ActivitiesController(ApplicationDbContext context)
     {
-        return NotFound(new
-        {
-            message = "Activity not found."
-        });
+        _context = context;
     }
 
-    return Ok(activity);
-}
-
-[HttpPost]
-public async Task<IActionResult> Create(CreateActivityDto dto)
-{
-    var activity = await _activityService.CreateAsync(dto);
-
-    return CreatedAtAction(
-        nameof(GetById),
-        new { id = activity.Id },
-        activity);
-}
-
-[HttpDelete("{id:int}")]
-public async Task<IActionResult> Delete(int id)
-{
-    var deleted = await _activityService.DeleteAsync(id);
-
-    if (!deleted)
+    [HttpGet]
+    public async Task<ActionResult<IEnumerable<Activity>>> GetActivities()
     {
-        return NotFound(new
-        {
-            message = "Activity not found."
-        });
+        return await _context.Activities
+            .OrderByDescending(a => a.CreatedAt)
+            .ToListAsync();
     }
 
-    return NoContent();
-}
+    [HttpGet("{id}")]
+    public async Task<ActionResult<Activity>> GetActivity(int id)
+    {
+        var activity = await _context.Activities.FindAsync(id);
 
+        if (activity == null)
+            return NotFound();
 
+        return activity;
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<Activity>> CreateActivity(Activity activity)
+    {
+        activity.CreatedAt = DateTime.UtcNow;
+
+        _context.Activities.Add(activity);
+        await _context.SaveChangesAsync();
+
+        return CreatedAtAction(
+            nameof(GetActivity),
+            new { id = activity.Id },
+            activity);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<IActionResult> DeleteActivity(int id)
+    {
+        var activity = await _context.Activities.FindAsync(id);
+
+        if (activity == null)
+            return NotFound();
+
+        _context.Activities.Remove(activity);
+        await _context.SaveChangesAsync();
+
+        return NoContent();
+    }
 }

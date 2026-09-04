@@ -89,17 +89,139 @@
 
   </div>
 
-  <!-- Projects Content -->
+<!-- =======================================================
+     PROJECT OVERVIEW
+======================================================= -->
 
-  <div class="projects-card">
+<section class="project-overview">
 
+  <div class="overview-header">
+    <div>
+      <h2>🔥 PROJECT OVERVIEW 🔥</h2>
+      <p>Overview of your current project status</p>
+    </div>
+  </div>
+
+  <div class="overview-grid">
+
+    <div class="overview-card">
+
+      <div class="overview-card-header">
+        <div>
+          <span>Active Projects</span>
+          <strong>{{ activeProjects }}</strong>
+        </div>
+
+        <div class="overview-icon active">
+          ●
+        </div>
+      </div>
+
+      <div class="overview-progress">
+        <div
+          class="overview-progress-bar active"
+          [style.width.%]="
+            totalProjects > 0
+              ? (activeProjects / totalProjects) * 100
+              : 0
+          ">
+        </div>
+      </div>
+
+      <p>
+        {{
+          totalProjects > 0
+            ? ((activeProjects / totalProjects) * 100 | number:'1.0-0')
+            : 0
+        }}% of total projects
+      </p>
+
+    </div>
+
+
+    <div class="overview-card">
+
+      <div class="overview-card-header">
+        <div>
+          <span>Completed Projects</span>
+          <strong>{{ completedProjects }}</strong>
+        </div>
+
+        <div class="overview-icon completed">
+          ✓
+        </div>
+      </div>
+
+      <div class="overview-progress">
+        <div
+          class="overview-progress-bar completed"
+          [style.width.%]="
+            totalProjects > 0
+              ? (completedProjects / totalProjects) * 100
+              : 0
+          ">
+        </div>
+      </div>
+
+      <p>
+        {{
+          totalProjects > 0
+            ? ((completedProjects / totalProjects) * 100 | number:'1.0-0')
+            : 0
+        }}% of total projects
+      </p>
+
+    </div>
+
+
+    <div class="overview-card">
+
+      <div class="overview-card-header">
+        <div>
+          <span>On Hold Projects</span>
+          <strong>{{ onHoldProjects }}</strong>
+        </div>
+
+        <div class="overview-icon hold">
+          ⏸
+        </div>
+      </div>
+
+      <div class="overview-progress">
+        <div
+          class="overview-progress-bar hold"
+          [style.width.%]="
+            totalProjects > 0
+              ? (onHoldProjects / totalProjects) * 100
+              : 0
+          ">
+        </div>
+      </div>
+
+      <p>
+        {{
+          totalProjects > 0
+            ? ((onHoldProjects / totalProjects) * 100 | number:'1.0-0')
+            : 0
+        }}% of total projects
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- Projects Content -->
+
+<div class="projects-card">
 
 <!-- Toolbar -->
 
 <div class="projects-toolbar">
 
   <div class="search-box">
-
     <span>⌕</span>
 
     <input

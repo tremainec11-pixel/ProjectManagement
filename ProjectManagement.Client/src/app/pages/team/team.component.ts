@@ -163,44 +163,66 @@ export class TeamComponent implements OnInit {
 
   loadMembers(): void {
 
-    if (!this.selectedProjectId) {
-      return;
-    }
-
-    this.isLoadingMembers = true;
-    this.errorMessage = '';
-
-    this.projectMemberService
-      .getProjectMembers(this.selectedProjectId)
-      .subscribe({
-
-        next: (members) => {
-
-          console.log(
-            'PROJECT MEMBERS LOADED:',
-            members
-          );
-
-          this.members = members;
-
-          this.isLoadingMembers = false;
-        },
-
-        error: (error) => {
-
-          console.error(
-            'ERROR LOADING PROJECT MEMBERS:',
-            error
-          );
-
-          this.errorMessage =
-            'Unable to load team members. Please try again.';
-
-          this.isLoadingMembers = false;
-        }
-
-      });
+  if (!this.selectedProjectId) {
+    return;
   }
+
+  this.isLoadingMembers = true;
+  this.errorMessage = '';
+
+  this.projectMemberService
+    .getProjectMembers(this.selectedProjectId)
+    .subscribe({
+
+      next: (members) => {
+
+        console.log(
+          'PROJECT MEMBERS LOADED:',
+          members
+        );
+
+        this.members = members.map(member => {
+
+          const user = this.users.find(
+            u => u.id === member.userId
+          );
+
+          return {
+            ...member,
+            userName: user
+              ? `${user.firstName} ${user.lastName}`
+              : member.userName,
+
+            email: user
+              ? user.email
+              : member.email
+          };
+
+        });
+
+        console.log(
+          'PROJECT MEMBERS WITH USER DATA:',
+          this.members
+        );
+
+        this.isLoadingMembers = false;
+      },
+
+      error: (error) => {
+
+        console.error(
+          'ERROR LOADING PROJECT MEMBERS:',
+          error
+        );
+
+        this.errorMessage =
+          'Unable to load team members. Please try again.';
+
+        this.isLoadingMembers = false;
+      }
+
+    });
+}
 
   // =========================
   // ADD MEMBER

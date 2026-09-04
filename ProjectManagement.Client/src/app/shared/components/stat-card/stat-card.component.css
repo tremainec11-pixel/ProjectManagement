@@ -1,15 +1,21 @@
+/* ========================================
+   STAT CARD
+======================================== */
+
 .stat-card {
   position: relative;
-  min-height: 168px;
+  min-height: 175px;
   padding: 24px;
   box-sizing: border-box;
   overflow: hidden;
 
   background: #ffffff;
-  border: 1px solid #e2e8f0;
-  border-radius: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 14px;
 
-  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+  box-shadow:
+    0 1px 2px rgba(15, 23, 42, 0.04),
+    0 4px 12px rgba(15, 23, 42, 0.04);
 
   transition:
     transform 0.2s ease,
@@ -17,27 +23,38 @@
     border-color 0.2s ease;
 }
 
+/* Subtle top accent */
 .stat-card::after {
   content: '';
   position: absolute;
   top: 0;
   left: 0;
+
   width: 100%;
   height: 3px;
+
   background: #2563eb;
+
   opacity: 0;
+
   transition: opacity 0.2s ease;
 }
 
+/* Hover */
 .stat-card:hover {
   transform: translateY(-3px);
-  border-color: #bfdbfe;
-  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.08);
+
+  border-color: #dbeafe;
+
+  box-shadow:
+    0 4px 6px rgba(15, 23, 42, 0.04),
+    0 12px 28px rgba(15, 23, 42, 0.08);
 }
 
 .stat-card:hover::after {
   opacity: 1;
 }
+
 
 /* ========================================
    TOP SECTION
@@ -47,9 +64,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   gap: 16px;
   margin-bottom: 20px;
 }
+
 
 /* ========================================
    ICON
@@ -58,13 +77,15 @@
 .stat-icon {
   width: 48px;
   height: 48px;
+
   flex-shrink: 0;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  border-radius: 13px;
+  border-radius: 12px;
+
   background: #eff6ff;
   color: #2563eb;
 
@@ -75,15 +96,17 @@
 
 .stat-card:hover .stat-icon {
   background: #dbeafe;
-  transform: scale(1.04);
+  transform: scale(1.05);
 }
 
 .stat-icon mat-icon {
   width: 24px;
   height: 24px;
+
   font-size: 24px;
   line-height: 24px;
 }
+
 
 /* ========================================
    TREND
@@ -92,6 +115,7 @@
 .stat-trend {
   display: inline-flex;
   align-items: center;
+
   gap: 5px;
 
   min-height: 30px;
@@ -99,20 +123,22 @@
 
   border-radius: 999px;
 
-  font-size: 13px;
-  font-weight: 650;
+  font-size: 12px;
+  font-weight: 700;
+
   white-space: nowrap;
 }
 
 .stat-trend mat-icon {
   width: 16px;
   height: 16px;
+
   font-size: 16px;
   line-height: 16px;
 }
 
 .stat-trend.positive {
-  background: #ecfdf5;
+  background: #ecfdf3;
   color: #15803d;
 }
 
@@ -121,6 +147,7 @@
   color: #dc2626;
 }
 
+
 /* ========================================
    CONTENT
 ======================================== */
@@ -128,60 +155,73 @@
 .stat-content {
   display: flex;
   flex-direction: column;
+
   min-width: 0;
 }
 
 .stat-title {
   margin-bottom: 6px;
 
-  color: #1e293b;
-  font-size: 14px;
+  color: #64748b;
+
+  font-size: 13px;
   font-weight: 600;
+
   line-height: 1.4;
 }
 
 .stat-value {
   margin: 0;
 
-  color: #01050e;
-  font-size: 32px;
+  color: #0f172a;
+
+  font-size: 38px;
   font-weight: 750;
+
   line-height: 1.15;
-  letter-spacing: -0.6px;
+
+  letter-spacing: -0.8px;
 }
 
 .stat-subtitle {
-  margin-top: 8px;
+  margin-top: 9px;
 
   color: #94a3b8;
-  font-size: 13px;
-  line-height: 1.4;
+
+  font-size: 14px;
+
+  line-height: 1.45;
 }
+
 
 /* ========================================
    RESPONSIVE
 ======================================== */
 
 @media (max-width: 700px) {
+
   .stat-card {
-    min-height: 150px;
-    padding: 19px;
+    min-height: 155px;
+    padding: 20px;
   }
 
   .stat-card-top {
-    margin-bottom: 16px;
+    margin-bottom: 17px;
   }
 
   .stat-icon {
-    width: 42px;
-    height: 42px;
+    width: 43px;
+    height: 43px;
+
     border-radius: 11px;
   }
 
   .stat-icon mat-icon {
     width: 21px;
     height: 21px;
+
     font-size: 21px;
+    line-height: 21px;
   }
 
   .stat-title {
@@ -195,4 +235,58 @@
   .stat-subtitle {
     font-size: 12px;
   }
+}
+
+
+/* ========================================
+   DARK MODE
+======================================== */
+
+:host-context(body.dark-theme) .stat-card {
+  background: #111827;
+
+  border-color: #1f2937;
+
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.2),
+    0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+:host-context(body.dark-theme) .stat-card:hover {
+  border-color: #374151;
+
+  box-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.25),
+    0 12px 28px rgba(0, 0, 0, 0.25);
+}
+
+:host-context(body.dark-theme) .stat-icon {
+  background: #172554;
+  color: #60a5fa;
+}
+
+:host-context(body.dark-theme) .stat-card:hover .stat-icon {
+  background: #1e3a8a;
+}
+
+:host-context(body.dark-theme) .stat-title {
+  color: #cbd5e1;
+}
+
+:host-context(body.dark-theme) .stat-value {
+  color: #f8fafc;
+}
+
+:host-context(body.dark-theme) .stat-subtitle {
+  color: #94a3b8;
+}
+
+:host-context(body.dark-theme) .stat-trend.positive {
+  background: #052e16;
+  color: #4ade80;
+}
+
+:host-context(body.dark-theme) .stat-trend.negative {
+  background: #450a0a;
+  color: #d48181;
 }

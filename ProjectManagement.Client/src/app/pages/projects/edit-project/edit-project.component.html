@@ -1,0 +1,196 @@
+<div class="edit-project-page">
+
+  <div class="page-header">
+
+    <div>
+      <h1>Edit Project</h1>
+      <p>Update your project information.</p>
+    </div>
+
+    <button
+      type="button"
+      class="back-button"
+      (click)="cancel()">
+
+      ← Back to Projects
+
+    </button>
+
+  </div>
+
+
+  <!-- Loading -->
+
+  <div
+    *ngIf="isLoading"
+    class="loading-state">
+
+    Loading project...
+
+  </div>
+
+
+  <!-- Error -->
+
+  <div
+    *ngIf="errorMessage"
+    class="error-message">
+
+    {{ errorMessage }}
+
+  </div>
+
+
+  <!-- Form -->
+
+  <form
+    *ngIf="!isLoading"
+    class="project-form"
+    (ngSubmit)="saveProject()">
+
+
+    <!-- Project Name -->
+
+    <div class="form-group">
+
+      <label for="name">
+        Project Name
+      </label>
+
+      <input
+        id="name"
+        type="text"
+        name="name"
+        [(ngModel)]="project.name"
+        placeholder="Enter project name"
+        required />
+
+    </div>
+
+
+    <!-- Description -->
+
+    <div class="form-group">
+
+      <label for="description">
+        Description
+      </label>
+
+      <textarea
+        id="description"
+        name="description"
+        [(ngModel)]="project.description"
+        placeholder="Enter project description"
+        rows="5"
+        required>
+      </textarea>
+
+    </div>
+
+
+    <!-- Status -->
+
+    <div class="form-group">
+
+      <label for="status">
+        Status
+      </label>
+
+      <select
+        id="status"
+        name="status"
+        [(ngModel)]="project.status">
+
+        <option value="Active">
+          Active
+        </option>
+
+        <option value="Completed">
+          Completed
+        </option>
+
+        <option value="On Hold">
+          On Hold
+        </option>
+
+        <option value="Cancelled">
+          Cancelled
+        </option>
+
+      </select>
+
+    </div>
+
+
+    <!-- Dates -->
+
+    <div class="form-row">
+
+      <div class="form-group">
+
+        <label for="startDate">
+          Start Date
+        </label>
+
+        <input
+          id="startDate"
+          type="date"
+          name="startDate"
+          [(ngModel)]="project.startDate"
+          required />
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="dueDate">
+          Due Date
+        </label>
+
+        <input
+          id="dueDate"
+          type="date"
+          name="dueDate"
+          [(ngModel)]="project.dueDate" />
+
+      </div>
+
+    </div>
+
+
+    <!-- Buttons -->
+
+    <div class="form-actions">
+
+      <button
+        type="button"
+        class="cancel-button"
+        (click)="cancel()"
+        [disabled]="isSaving">
+
+        Cancel
+
+      </button>
+
+
+      <button
+        type="submit"
+        class="save-button"
+        [disabled]="isSaving">
+
+        <span *ngIf="!isSaving">
+          Save Changes
+        </span>
+
+        <span *ngIf="isSaving">
+          Saving...
+        </span>
+
+      </button>
+
+    </div>
+
+  </form>
+
+</div>
