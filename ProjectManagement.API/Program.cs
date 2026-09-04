@@ -1,35 +1,57 @@
 using Microsoft.EntityFrameworkCore;
 using ProjectManagement.API.Data;
-using Npgsql;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+// =======================================================
+// DATABASE
+// =======================================================
+
+var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
+var dbPort = Environment.GetEnvironmentVariable("DB_PORT") ?? "5432";
+var dbName = Environment.GetEnvironmentVariable("DB_NAME");
+var dbUser = Environment.GetEnvironmentVariable("DB_USER");
+var dbPassword = Environment.GetEnvironmentVariable("DB_PASSWORD");
 
 Console.WriteLine("========================================");
 Console.WriteLine("DATABASE CONNECTION CHECK");
-Console.WriteLine($"Connection string exists: {!string.IsNullOrEmpty(connectionString)}");
+Console.WriteLine($"DB_HOST exists: {!string.IsNullOrWhiteSpace(dbHost)}");
+Console.WriteLine($"DB_PORT: {dbPort}");
+Console.WriteLine($"DB_NAME exists: {!string.IsNullOrWhiteSpace(dbName)}");
+Console.WriteLine($"DB_USER exists: {!string.IsNullOrWhiteSpace(dbUser)}");
+Console.WriteLine($"DB_PASSWORD exists: {!string.IsNullOrWhiteSpace(dbPassword)}");
+Console.WriteLine("========================================");
 
-if (!string.IsNullOrEmpty(connectionString))
+if (string.IsNullOrWhiteSpace(dbHost) ||
+    string.IsNullOrWhiteSpace(dbName) ||
+    string.IsNullOrWhiteSpace(dbUser) ||
+    string.IsNullOrWhiteSpace(dbPassword))
 {
-    var connectionBuilder = new NpgsqlConnectionStringBuilder(connectionString);
-
-    Console.WriteLine($"Database Host: {connectionBuilder.Host}");
-    Console.WriteLine($"Database Port: {connectionBuilder.Port}");
-    Console.WriteLine($"Database Name: {connectionBuilder.Database}");
-    Console.WriteLine($"Database User: {connectionBuilder.Username}");
-    Console.WriteLine($"Password provided: {!string.IsNullOrEmpty(connectionBuilder.Password)}");
+    throw new Exception("Database environment variables are missing.");
 }
 
-Console.WriteLine("========================================");
+var connectionString =
+    $"Host={dbHost};" +
+    $"Port={dbPort};" +
+    $"Database={dbName};" +
+    $"Username={dbUser};" +
+    $"Password={dbPassword};" +
+    $"SSL Mode=Require;";
+
+// =======================================================
+// SERVICES
+// =======================================================
 
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAngular", policy =>
     {
-        policy.WithOrigins("http://localhost:4200")
-              .AllowAnyHeader()
-              .AllowAnyMethod();
+        policy
+            .WithOrigins(
+                "http://localhost:4200"
+            )
+            .AllowAnyHeader()
+            .AllowAnyMethod();
     });
 });
 
@@ -39,6 +61,10 @@ builder.Services.AddControllers();
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseNpgsql(connectionString));
+
+// =======================================================
+// APP
+// =======================================================
 
 var app = builder.Build();
 
