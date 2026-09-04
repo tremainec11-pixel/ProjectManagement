@@ -1,25 +1,20 @@
-using Microsoft.EntityFrameworkCore;
-using ProjectManagement.API.Data;
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-var builder = WebApplication.CreateBuilder(args);
+Console.WriteLine("========================================");
+Console.WriteLine("DATABASE CONNECTION CHECK");
+Console.WriteLine($"Connection string exists: {!string.IsNullOrEmpty(connectionString)}");
 
-builder.Services.AddCors(options =>
+if (!string.IsNullOrEmpty(connectionString))
 {
-    options.AddPolicy("AllowAngular", policy =>
-    {
-        policy.WithOrigins("http://localhost:4200")
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
-});
+    var connectionBuilder = new Npgsql.NpgsqlConnectionStringBuilder(connectionString);
 
-builder.Services.AddOpenApi();
+    Console.WriteLine($"Database Host: {connectionBuilder.Host}");
+    Console.WriteLine($"Database Port: {connectionBuilder.Port}");
+    Console.WriteLine($"Database Name: {connectionBuilder.Database}");
+    Console.WriteLine($"Database User: {connectionBuilder.Username}");
+}
 
-builder.Services.AddControllers();
-
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(
-        builder.Configuration.GetConnectionString("DefaultConnection")));
+Console.WriteLine("========================================");
 
 var app = builder.Build();
 
