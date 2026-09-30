@@ -24,11 +24,16 @@ Console.WriteLine("========================================");
 
 if (string.IsNullOrWhiteSpace(dbHost) ||
     string.IsNullOrWhiteSpace(dbName) ||
-    string.IsNullOrWhiteSpace(dbUser) ||
-    string.IsNullOrWhiteSpace(dbPassword))
+    string.IsNullOrWhiteSpace(dbUser))
 {
     throw new Exception("Database environment variables are missing.");
 }
+
+// Local PostgreSQL does not use SSL.
+// Render/production will continue using SSL.
+var sslMode = builder.Environment.IsDevelopment()
+    ? "Disable"
+    : "Require";
 
 var connectionString =
     $"Host={dbHost};" +
@@ -36,7 +41,7 @@ var connectionString =
     $"Database={dbName};" +
     $"Username={dbUser};" +
     $"Password={dbPassword};" +
-    $"SSL Mode=Require;";
+    $"SSL Mode={sslMode};";
 
 // =======================================================
 // SERVICES
@@ -48,7 +53,8 @@ builder.Services.AddCors(options =>
     {
         policy
             .WithOrigins(
-                "http://localhost:4200"
+                "http://localhost:4200",
+                "https://projectmanagement-2-a5tu.onrender.com"
             )
             .AllowAnyHeader()
             .AllowAnyMethod();
